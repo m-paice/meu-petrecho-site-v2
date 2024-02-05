@@ -44,8 +44,7 @@ export function Schedules() {
 const styles: Styles = {
   container: {
     display: "grid",
-    gridTemplateColumns: "400px auto",
-    margin: "40px",
+    gridTemplateColumns: "350px auto",
   },
   leftSection: {
     backgroundColor: "#e6e6e6",
