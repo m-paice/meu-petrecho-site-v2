@@ -5,9 +5,9 @@ import { colors } from "../../theme";
 import { Item } from "../Item";
 
 const status: { [key: number]: { color: string; text: string } } = {
-  1: { color: "green", text: "finalizado" },
-  2: { color: "orange", text: "pendente" },
-  3: { color: "red", text: "cancelado" },
+  1: { color: "#13deb9", text: "finalizado" },
+  2: { color: "#ffae1f", text: "pendente" },
+  3: { color: "#fa896b", text: "cancelado" },
 };
 
 export function Items() {

@@ -1,10 +1,18 @@
 import { Outlet } from "react-router-dom";
 import { Sidebar } from "../components/Sidebar";
 import { Header } from "../components/Header";
+import { useLayoutContext } from "../context/layout";
 
 export function DashboardLayout() {
+  const { hideSidebar } = useLayoutContext();
+
   return (
-    <div style={styles.container}>
+    <div
+      style={{
+        ...styles.container,
+        gridTemplateColumns: hideSidebar ? "80px auto" : "250px auto",
+      }}
+    >
       <Header />
       <Sidebar />
       <main style={styles.main}>
@@ -21,12 +29,14 @@ const styles = {
             "sidebar header"
             "sidebar main"
         `,
-    gridTemplateColumns: "250px auto",
-    gridtemplateRows: "250px auto",
+    gridTemplateRows: "70px auto",
+    transition: "0.3s",
   },
   main: {
     gridArea: "main",
-    height: "calc(100vh - 250px)",
+    height: "calc(100vh - 70px)",
     padding: 20,
+    overflowY: "auto",
+    overflowX: "hidden",
   },
 };

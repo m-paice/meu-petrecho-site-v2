@@ -29,7 +29,7 @@ export function Button({
         backgroundColor: type === "filled" ? colors.primary : "transparent",
         border: type === "filled" ? "none" : `2px solid ${colors.primary}`,
         color: type === "filled" ? colors.white : colors.primary,
-        borderRadius: "10px",
+        borderRadius: "7px",
         cursor: "pointer",
         width: "100%",
         fontSize: sizes[size] || sizes.medium,

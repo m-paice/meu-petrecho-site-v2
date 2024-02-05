@@ -1,5 +1,6 @@
 import dayjs from "dayjs";
 import { Button } from "../Button";
+import { CSSProperties } from "react";
 
 interface Props {
   currentDate: dayjs.Dayjs;
@@ -210,8 +211,10 @@ export function Calendar({
                       style={{
                         display: "flex",
                         gap: "5px",
+                        flexDirection: "column",
                         justifyContent: "center",
                         alignItems: "center",
+                        padding: "0 5px",
                       }}
                     >
                       {schedulesConfirmed.length > 0 && (
@@ -241,7 +244,7 @@ export function Calendar({
   );
 }
 
-const styles = {
+const styles: { [key: string]: CSSProperties } = {
   header: {
     display: "flex",
     justifyContent: "space-between",
@@ -279,25 +282,30 @@ const styles = {
     transition: "0.3s",
   },
   badge: {
-    width: "20px",
-    height: "20px",
-    backgroundColor: "green",
-    borderRadius: "50%",
+    width: "100%",
+    borderLeft: "5px solid",
     color: "#fff",
     display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    fontSize: 14,
+    fontSize: 12,
     fontWeight: "bold",
+    borderTopLeftRadius: 2,
+    borderBottomLeftRadius: 2,
+    paddingLeft: 5,
   },
 
   confirmed: {
-    backgroundColor: "green",
+    backgroundColor: "rgba(19, 222, 185, 0.3)",
+    color: "#13deb9",
+    borderColor: "#13deb9",
   },
   canceled: {
-    backgroundColor: "red",
+    backgroundColor: "rgba(250, 137, 107, 0.3)",
+    color: "#fa896b",
+    borderColor: "#fa896b",
   },
   pending: {
-    backgroundColor: "orange",
+    backgroundColor: "rgba(255, 174, 31, 0.3)",
+    color: "#ffae1f",
+    borderColor: "#ffae1f",
   },
 };

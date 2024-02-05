@@ -1,25 +1,31 @@
 import { useNavigate } from "react-router-dom";
 
+import { CalendarIcon, UsersIcon, WrenchIcon } from "@heroicons/react/20/solid";
+
+import "./style.css";
+import { useLayoutContext } from "../../context/layout";
+
 const routes = [
   {
     path: "/schedules",
     label: "Agenda",
-    icon: "/logo-meu-petrecho.png",
+    icon: <CalendarIcon width={20} />,
   },
   {
     path: "/clients",
     label: "Clientes",
-    icon: "/logo-meu-petrecho.png",
+    icon: <UsersIcon width={20} />,
   },
   {
     path: "/services",
     label: "Serviços",
-    icon: "/logo-meu-petrecho.png",
+    icon: <WrenchIcon width={20} />,
   },
 ];
 
 export function Sidebar() {
   const navigate = useNavigate();
+  const { hideSidebar } = useLayoutContext();
 
   return (
     <div
@@ -27,6 +33,14 @@ export function Sidebar() {
         gridArea: "sidebar",
         backgroundColor: "#fff",
         borderRight: "1px solid #e6e6e6",
+        height: "100vh",
+
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "space-between",
+        padding: "10px",
+        transition: "0.3s",
+        width: hideSidebar ? 80 : 250,
       }}
     >
       <div>
@@ -34,8 +48,8 @@ export function Sidebar() {
           style={{
             display: "flex",
             alignItems: "flex-end",
-            gap: 10,
-            padding: "10px",
+            justifyContent: "center",
+            gap: hideSidebar ? 0 : 20,
           }}
         >
           <img width="40" src="/logo-meu-petrecho.png" alt="" />
@@ -46,7 +60,7 @@ export function Sidebar() {
               fontSize: 20,
             }}
           >
-            Roane Rocha
+            {hideSidebar ? null : "Meu Petrecho"}
           </h4>
         </div>
 
@@ -71,14 +85,25 @@ export function Sidebar() {
                 backgroundColor:
                   location.pathname === route.path ? "#ED3B47" : "white",
                 color: location.pathname === route.path ? "white" : "black",
+                transition: "0.3s",
               }}
             >
-              <img width="20" src="/logo-meu-petrecho.png" alt="" />
-              <p>{route.label}</p>
+              {route.icon}
+              {hideSidebar ? null : <p>{route.label}</p>}
             </li>
           ))}
         </ul>
       </div>
+
+      <p
+        style={{
+          textAlign: "center",
+          color: "#000",
+          fontSize: 14,
+        }}
+      >
+        versão 1.0.0
+      </p>
     </div>
   );
 }

@@ -14,6 +14,7 @@ export function Switch() {
         padding: 2,
         width: 60,
         border: "1px solid #D9D9D9",
+        cursor: "pointer",
       }}
     >
       <span
@@ -25,6 +26,7 @@ export function Switch() {
           height: 20,
           transform: `translateX(${enabled ? 33 : 0}px)`,
           transition: "transform 0.3s",
+          cursor: "pointer",
         }}
       />
     </SwitchComponent>
