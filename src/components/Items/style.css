@@ -1,0 +1,7 @@
+.item:hover {
+  b,
+  p {
+    color: #ed3b47;
+    transition: 0.3s;
+  }
+}

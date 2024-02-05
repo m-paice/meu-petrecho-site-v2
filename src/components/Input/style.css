@@ -1,0 +1,9 @@
+input {
+  border: none;
+  border-bottom: 1px solid #d3d3d3;
+}
+input:active,
+input:focus,
+input:hover {
+  border-color: #ed3b47;
+}
