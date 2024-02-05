@@ -1,3 +1,5 @@
+import "./syles.css";
+
 import { colors } from "../../theme";
 
 interface Props {
