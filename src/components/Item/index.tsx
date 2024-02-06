@@ -10,8 +10,8 @@ export function Item({ text, color }: Props) {
   return (
     <div
       style={{
-        position: "relative",
         width: "100%",
+        position: "relative",
       }}
     >
       <Menu as="div">
@@ -56,11 +56,7 @@ export function Item({ text, color }: Props) {
           leaveFrom="transform opacity-100 scale-100"
           leaveTo="transform opacity-0 scale-95"
         >
-          <Menu.Items
-            style={{
-              zIndex: 999,
-            }}
-          >
+          <Menu.Items>
             <div style={styles.containerOptions}>
               <Menu.Item>
                 <button
@@ -158,8 +154,8 @@ const styles = {
     width: 150,
     position: "absolute",
     right: 5,
-    top: 0,
-    zIndex: 100,
+    top: 30,
+    zIndex: 1,
   },
 
   confirmed: {

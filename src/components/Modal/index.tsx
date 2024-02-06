@@ -80,6 +80,7 @@ const styles: { [key: string]: CSSProperties } = {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
+    zIndex: 1,
   },
   modal: {
     backgroundColor: "#fff",

@@ -27,7 +27,7 @@ export function Clients() {
     <div>
       <div
         style={{
-          backgroundColor: "#D9D9D9",
+          backgroundColor: "#e6e6e6",
           padding: "10px",
           display: "flex",
           justifyContent: "space-between",

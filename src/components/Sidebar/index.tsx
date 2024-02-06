@@ -21,6 +21,11 @@ const routes = [
     label: "Serviços",
     icon: <WrenchIcon width={20} />,
   },
+  {
+    path: "/campaigns",
+    label: "Campanhas",
+    icon: <WrenchIcon width={20} />,
+  },
 ];
 
 export function Sidebar() {

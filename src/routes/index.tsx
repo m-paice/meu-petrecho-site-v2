@@ -1,9 +1,11 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+
 import { Login } from "../pages/Login";
-import { Schedules } from "../pages/Schedules";
 import { DashboardLayout } from "./DashboardLayout";
+import { Schedules } from "../pages/Schedules";
 import { Clients } from "../pages/Clients";
 import { Services } from "../pages/Services";
+import { Campaigns } from "../pages/Campaigns";
 
 const router = createBrowserRouter([
   {
@@ -24,6 +26,10 @@ const router = createBrowserRouter([
       {
         path: "/services",
         element: <Services />,
+      },
+      {
+        path: "/campaigns",
+        element: <Campaigns />,
       },
     ],
   },
