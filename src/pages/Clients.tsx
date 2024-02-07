@@ -1,84 +1,138 @@
-import { useNavigate } from "react-router-dom";
-import { Button } from "../components/Button";
-import { Table } from "../components/Table";
+import { ClientsList } from "../components/ClientsList";
+import { ClientsDetails } from "../components/ClientsDetails";
+import { ClientsNew } from "../components/ClientsNew";
+import { ClientsFilter } from "../components/ClientsFilter";
 
 const clients = [
   {
-    id: 1,
+    id: "1",
     name: "João",
-    phone: "11999999999",
-    email: "joao@email.com",
+    phone: "99999999999",
+    birthday: "january",
   },
   {
-    id: 2,
+    id: "2",
     name: "Maria",
-    phone: "11999999999",
-    email: "maria@email.com",
+    phone: "99999999999",
+    birthday: "january",
   },
   {
-    id: 3,
+    id: "3",
     name: "José",
-    phone: "11999999999",
-    email: "jose@email.com",
+    phone: "99999999999",
+    birthday: "january",
+  },
+  {
+    id: "4",
+    name: "João",
+    phone: "99999999999",
+    birthday: "january",
+  },
+  {
+    id: "5",
+    name: "Maria",
+    phone: "99999999999",
+    birthday: "january",
+  },
+  {
+    id: "6",
+    name: "José",
+    phone: "99999999999",
+    birthday: "january",
+  },
+  {
+    id: "7",
+    name: "João",
+    phone: "99999999999",
+    birthday: "january",
+  },
+  {
+    id: "8",
+    name: "Maria",
+    phone: "99999999999",
+    birthday: "january",
+  },
+  {
+    id: "9",
+    name: "José",
+    phone: "99999999999",
+    birthday: "january",
+  },
+  {
+    id: "5",
+    name: "Maria",
+    phone: "99999999999",
+    birthday: "january",
+  },
+  {
+    id: "6",
+    name: "José",
+    phone: "99999999999",
+    birthday: "january",
+  },
+  {
+    id: "7",
+    name: "João",
+    phone: "99999999999",
+    birthday: "january",
+  },
+  {
+    id: "8",
+    name: "Maria",
+    phone: "99999999999",
+    birthday: "january",
+  },
+  {
+    id: "9",
+    name: "José",
+    phone: "99999999999",
+    birthday: "january",
   },
 ];
 
 export function Clients() {
-  const navigate = useNavigate();
-
   return (
     <div>
-      <div
-        style={{
-          backgroundColor: "#e6e6e6",
-          padding: "10px",
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          borderRadius: 10,
-          marginBottom: 20,
-        }}
-      >
+      <div style={styles.container}>
         <h4
           style={{
             fontSize: 24,
+            fontWeight: "400",
           }}
         >
           Clientes
         </h4>
-        <div>
-          <Button
-            title="novo cliente"
-            onClick={() => navigate("/clients/new")}
-          />
-        </div>
       </div>
-
-      <Table
-        data={clients}
-        headers={[
-          { key: "name", title: "Nome" },
-          {
-            key: "phone",
-            title: "Telefone",
-            formated: (phone: string) =>
-              phone.replace(/(\d{2})(\d{5})(\d{4})/, "($1) $2-$3"),
-          },
-          { key: "email", title: "E-mail" },
-        ]}
-        actions={[
-          {
-            title: "Editar",
-            name: "edit",
-            onClick: (id: string) => navigate(`/clients/${id}/edit`),
-          },
-          {
-            title: "Excluir",
-            name: "delete",
-            onClick: (id: string) => navigate(`/clients/${id}/delete`),
-          },
-        ]}
-      />
+      <div style={styles.grid}>
+        <div style={styles.wrapperActions}>
+          <ClientsNew />
+          <ClientsFilter />
+        </div>
+        <ClientsList clients={clients} />
+        <ClientsDetails />
+      </div>
     </div>
   );
 }
+
+const styles = {
+  container: {
+    backgroundColor: "#ebf3fe",
+    padding: "10px",
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    borderRadius: 10,
+    marginBottom: 20,
+  },
+  grid: {
+    display: "grid",
+    gridTemplateColumns: "200px 400px 1fr",
+    gridTemplateRows: "calc(100vh - 200px)",
+  },
+  wrapperActions: {
+    borderRight: "1px solid #e6e6e6",
+
+    paddingRight: 10,
+  },
+};

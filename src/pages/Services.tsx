@@ -58,6 +58,42 @@ const services = [
     price: 50,
     time: 60,
   },
+  {
+    id: "2",
+    name: "Barba",
+    price: 20,
+    time: 20,
+  },
+  {
+    id: "3",
+    name: "Pintura",
+    price: 50,
+    time: 60,
+  },
+  {
+    id: "2",
+    name: "Barba",
+    price: 20,
+    time: 20,
+  },
+  {
+    id: "3",
+    name: "Pintura",
+    price: 50,
+    time: 60,
+  },
+  {
+    id: "2",
+    name: "Barba",
+    price: 20,
+    time: 20,
+  },
+  {
+    id: "3",
+    name: "Pintura",
+    price: 50,
+    time: 60,
+  },
 ];
 
 export function Services() {
@@ -98,11 +134,11 @@ const styles = {
   grid: {
     display: "grid",
     gridTemplateColumns: "200px 400px 1fr",
-    gridTemplateRows: "500px",
+    gridTemplateRows: "calc(100vh - 200px)",
   },
   wrapperActions: {
     borderRight: "1px solid #e6e6e6",
-    paddingLeft: 10,
+
     paddingRight: 10,
   },
 };

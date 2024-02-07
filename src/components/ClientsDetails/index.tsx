@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { PencilIcon, TrashIcon } from "@heroicons/react/20/solid";
 
-export function ServicesDetails() {
+export function ClientsDetails() {
   const navigate = useNavigate();
   return (
     <div
@@ -28,7 +28,7 @@ export function ServicesDetails() {
             width={20}
             color="gray"
             style={{ cursor: "pointer" }}
-            onClick={() => navigate("/services/1/edit")}
+            onClick={() => navigate("/clients/1/edit")}
           />
           <TrashIcon width={20} color="gray" style={{ cursor: "pointer" }} />
         </div>
@@ -49,9 +49,9 @@ export function ServicesDetails() {
           }}
         />
         <div>
-          <h4>Corte</h4>
-          <p>R$ 30</p>
-          <p>30 minutos</p>
+          <h4>João</h4>
+          <p>{"99999999999".replace(/(\d{2})(\d{5})(\d{4})/, "($1) $2-$3")}</p>
+          <p>january</p>
         </div>
       </div>
     </div>

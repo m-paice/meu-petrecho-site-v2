@@ -249,7 +249,7 @@ const styles: { [key: string]: CSSProperties } = {
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
-    marginBottom: "20px",
+    marginBottom: "0px",
   },
   month: {
     display: "flex",

@@ -49,16 +49,16 @@ const styles: Styles = {
   leftSection: {
     backgroundColor: "#e6e6e6",
     padding: "20px",
-    borderTopLeftRadius: "30px",
-    borderBottomLeftRadius: "30px",
+    borderTopLeftRadius: "20px",
+    borderBottomLeftRadius: "20px",
     display: "flex",
     flexDirection: "column",
     justifyContent: "space-between",
   },
   rightSection: {
-    padding: "20px",
-    borderTopRightRadius: "30px",
-    borderBottomRightRadius: "30px",
+    padding: "15px",
+    borderTopRightRadius: "20px",
+    borderBottomRightRadius: "20px",
     backgroundColor: "#f4f4f4",
   },
 };

@@ -2,24 +2,24 @@ import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
 import { useMemo, useState } from "react";
 
 interface Props {
-  services: {
+  clients: {
     id: string;
     name: string;
-    price: number;
-    time: number;
+    phone: string;
+    birthday: string;
   }[];
 }
 
-export function ServicesList({ services }: Props) {
+export function ClientsList({ clients }: Props) {
   const [search, setSearch] = useState("");
 
-  const servicesFiltered = useMemo(() => {
+  const clientsFiltered = useMemo(() => {
     return search.length > 0
-      ? services.filter((service) =>
+      ? clients.filter((service) =>
           service.name.toLowerCase().includes(search.toLowerCase())
         )
       : [];
-  }, [search, services]);
+  }, [search, clients]);
 
   return (
     <div
@@ -59,10 +59,10 @@ export function ServicesList({ services }: Props) {
           marginTop: 20,
         }}
       >
-        {search.length > 0 && servicesFiltered.length === 0 && (
-          <p style={{ textAlign: "center" }}>Nenhum serviço encontrado</p>
+        {search.length > 0 && clientsFiltered.length === 0 && (
+          <p style={{ textAlign: "center" }}>Nenhum cliente encontrado</p>
         )}
-        {(search.length > 0 ? servicesFiltered : services).map(
+        {(search.length > 0 ? clientsFiltered : clients).map(
           (service, index) => (
             <div
               key={index}
@@ -83,11 +83,8 @@ export function ServicesList({ services }: Props) {
               <div>
                 <h4>{service.name}</h4>
                 <p>
-                  R${" "}
-                  {service.price.toLocaleString("pt-BR", {
-                    minimumFractionDigits: 2,
-                  })}{" "}
-                  - {service.time} minutos
+                  {service.phone.replace(/(\d{2})(\d{5})(\d{4})/, "($1) $2-$3")}{" "}
+                  - {service.birthday}
                 </p>
               </div>
             </div>
