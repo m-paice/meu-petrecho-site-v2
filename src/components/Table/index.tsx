@@ -1,11 +1,21 @@
 import { CSSProperties } from "react";
 
-interface Props {
-  headers: { title: string; key: string }[];
-  data: unknown[];
+interface Data {
+  id: string;
+}
+interface Props<T> {
+  headers: { title: string; key: string; formated?(value: string): string }[];
+  data: T[];
+  actions?: [
+    {
+      title: string;
+      name: string;
+      onClick: (item: string) => void;
+    }
+  ];
 }
 
-export function Table({ headers, data }: Props) {
+export function Table<T = Data>({ headers, data, actions }: Props<T>) {
   return (
     <div>
       <table style={styles.table}>
@@ -16,7 +26,7 @@ export function Table({ headers, data }: Props) {
                 {header.title}
               </th>
             ))}
-            <th style={styles.lastTh}>Ações</th>
+            {actions && <th style={styles.lastTh}>Ações</th>}
           </tr>
         </thead>
         <tbody>
@@ -24,28 +34,28 @@ export function Table({ headers, data }: Props) {
             <tr key={item.id}>
               {headers.map((header) => (
                 <td style={styles.td} key={header.key}>
-                  {item[header.key]}
+                  {header.formated
+                    ? header.formated(item[header.key])
+                    : item[header.key]}
                 </td>
               ))}
 
-              <td style={styles.actions}>
-                <button
-                  style={{
-                    ...styles.button,
-                    ...styles.edit,
-                  }}
-                >
-                  Editar
-                </button>
-                <button
-                  style={{
-                    ...styles.button,
-                    ...styles.delete,
-                  }}
-                >
-                  Excluir
-                </button>
-              </td>
+              {actions && (
+                <td style={styles.actions}>
+                  {actions.map((action, index) => (
+                    <button
+                      key={index}
+                      style={{
+                        ...styles.button,
+                        ...styles[action.name],
+                      }}
+                      onClick={() => action.onClick(item.id)}
+                    >
+                      {action.title}
+                    </button>
+                  ))}
+                </td>
+              )}
             </tr>
           ))}
         </tbody>

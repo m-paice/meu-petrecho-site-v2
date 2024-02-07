@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { Button } from "../components/Button";
 import { Table } from "../components/Table";
 
@@ -5,24 +6,26 @@ const clients = [
   {
     id: 1,
     name: "João",
-    phone: "11 99999-9999",
+    phone: "11999999999",
     email: "joao@email.com",
   },
   {
     id: 2,
     name: "Maria",
-    phone: "11 99999-9999",
+    phone: "11999999999",
     email: "maria@email.com",
   },
   {
     id: 3,
     name: "José",
-    phone: "11 99999-9999",
+    phone: "11999999999",
     email: "jose@email.com",
   },
 ];
 
 export function Clients() {
+  const navigate = useNavigate();
+
   return (
     <div>
       <div
@@ -44,7 +47,10 @@ export function Clients() {
           Clientes
         </h4>
         <div>
-          <Button title="novo cliente" />
+          <Button
+            title="novo cliente"
+            onClick={() => navigate("/clients/new")}
+          />
         </div>
       </div>
 
@@ -52,8 +58,25 @@ export function Clients() {
         data={clients}
         headers={[
           { key: "name", title: "Nome" },
-          { key: "phone", title: "Telefone" },
+          {
+            key: "phone",
+            title: "Telefone",
+            formated: (phone: string) =>
+              phone.replace(/(\d{2})(\d{5})(\d{4})/, "($1) $2-$3"),
+          },
           { key: "email", title: "E-mail" },
+        ]}
+        actions={[
+          {
+            title: "Editar",
+            name: "edit",
+            onClick: (id: string) => navigate(`/clients/${id}/edit`),
+          },
+          {
+            title: "Excluir",
+            name: "delete",
+            onClick: (id: string) => navigate(`/clients/${id}/delete`),
+          },
         ]}
       />
     </div>

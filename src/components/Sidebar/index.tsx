@@ -86,9 +86,14 @@ export function Sidebar() {
                 alignItems: "center",
                 margin: "15px 0",
                 borderRadius: 5,
-                backgroundColor:
-                  location.pathname === route.path ? "#e34954" : "white",
-                color: location.pathname === route.path ? "white" : "black",
+                borderTopLeftRadius: 20,
+                borderBottomLeftRadius: 20,
+                backgroundColor: location.pathname.includes(route.path)
+                  ? "#e34954"
+                  : "white",
+                color: location.pathname.includes(route.path)
+                  ? "white"
+                  : "black",
                 transition: "0.3s",
               }}
             >
