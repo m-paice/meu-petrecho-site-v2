@@ -6,6 +6,52 @@ import { Button } from "../Button";
 import { useLayoutContext } from "../../context/layout";
 import { Bars4Icon } from "@heroicons/react/24/solid";
 
+const paths = {
+  "/schedules": {
+    title: "Agendamentos",
+    children: {
+      "/new": {
+        title: "Novo",
+      },
+      "/edit": {
+        title: "Editar",
+      },
+    },
+  },
+  "/clients": {
+    title: "Clientes",
+    children: {
+      "/new": {
+        title: "Novo",
+      },
+      "/edit": {
+        title: "Editar",
+      },
+    },
+  },
+  "/services": {
+    title: "Serviços",
+    children: {
+      "/new": {
+        title: "Novo",
+      },
+      "/edit": {
+        title: "Editar",
+      },
+    },
+  },
+  "/campaigns": {
+    title: "Campanhas",
+    children: {
+      "/new": {
+        title: "Novo",
+      },
+      "/edit": {
+        title: "Editar",
+      },
+    },
+  },
+};
 export function Header() {
   const navigate = useNavigate();
   const { setHideSidebar, hideSidebar } = useLayoutContext();
@@ -29,17 +75,41 @@ export function Header() {
           alignItems: "center",
         }}
       >
-        <button
-          style={{
-            backgroundColor: "transparent",
-            border: "none",
-            cursor: "pointer",
-          }}
+        <Bars4Icon
+          width="30"
           onClick={() => setHideSidebar(!hideSidebar)}
+          style={{ cursor: "pointer" }}
+        />
+        <div
+          style={{
+            fontSize: 18,
+            fontWeight: "bold",
+            color: "#8e8e8e",
+            display: "flex",
+            gap: 5,
+          }}
         >
-          <Bars4Icon width="30" />
-        </button>{" "}
-        Home - <strong>Agenda</strong>
+          Home -
+          {Object.keys(paths).map((path) => {
+            if (window.location.pathname.includes(path)) {
+              return (
+                <div key={path}>
+                  <span>{paths[path].title}</span>
+                  {Object.keys(paths[path].children).map((child) => {
+                    if (window.location.pathname.includes(child)) {
+                      return (
+                        <span key={paths[path].children[child].title}>
+                          {" - "}
+                          {paths[path].children[child].title}
+                        </span>
+                      );
+                    }
+                  })}
+                </div>
+              );
+            }
+          })}
+        </div>
       </div>
 
       <div

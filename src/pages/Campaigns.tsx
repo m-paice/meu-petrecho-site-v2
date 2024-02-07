@@ -1,3 +1,5 @@
+import { Chart } from "react-google-charts";
+
 import { CampaignsList } from "../components/CampaignsList";
 import { CampaignsDetails } from "../components/CampaignsDetails";
 import { CampaignsNew } from "../components/CampaignsNew";
@@ -105,6 +107,29 @@ const campaigns = [
   },
 ];
 
+export const options = {
+  chart: {
+    title: "Envio de mensagens por mês",
+    subtitle: "acompanhamento de mensagens enviadas por mês",
+  },
+};
+
+export const data = [
+  ["Mês", "Mensagens enviadas"],
+  ["Jan", 1000],
+  ["Fev", 1170],
+  ["Mar", 660],
+  ["Abr", 1030],
+  ["Mai", 1000],
+  ["Jun", 1170],
+  ["Jul", 660],
+  ["Ago", 1030],
+  ["Set", 1000],
+  ["Out", 1170],
+  ["Nov", 660],
+  ["Dez", 1030],
+];
+
 export function Campaigns() {
   return (
     <div>
@@ -119,9 +144,6 @@ export function Campaigns() {
         </h4>
       </div>
 
-      <div>
-        <h4>graficos</h4>
-      </div>
       <div style={styles.grid}>
         <div style={styles.wrapperActions}>
           <CampaignsNew />

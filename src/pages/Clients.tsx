@@ -132,7 +132,6 @@ const styles = {
   },
   wrapperActions: {
     borderRight: "1px solid #e6e6e6",
-
     paddingRight: 10,
   },
 };
