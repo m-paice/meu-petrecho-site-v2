@@ -2,24 +2,28 @@ import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
 import { useMemo, useState } from "react";
 
 interface Props {
-  clients: {
-    id: string;
+  campaigns: {
     name: string;
-    phone: string;
-    birthday: string;
+    clients: {
+      name: string;
+      phone: string;
+      service: string;
+      scheduleAt: string;
+    }[];
+    status: string;
   }[];
 }
 
-export function ClientsList({ clients }: Props) {
+export function CampaignsList({ campaigns }: Props) {
   const [search, setSearch] = useState("");
 
-  const clientsFiltered = useMemo(() => {
+  const campaignsFiltered = useMemo(() => {
     return search.length > 0
-      ? clients.filter((client) =>
-          client.name.toLowerCase().includes(search.toLowerCase())
+      ? campaigns.filter((campaign) =>
+          campaign.name.toLowerCase().includes(search.toLowerCase())
         )
       : [];
-  }, [search, clients]);
+  }, [search, campaigns]);
 
   return (
     <div
@@ -59,10 +63,10 @@ export function ClientsList({ clients }: Props) {
           marginTop: 20,
         }}
       >
-        {search.length > 0 && clientsFiltered.length === 0 && (
+        {search.length > 0 && campaignsFiltered.length === 0 && (
           <p style={{ textAlign: "center" }}>Nenhum cliente encontrado</p>
         )}
-        {(search.length > 0 ? clientsFiltered : clients).map(
+        {(search.length > 0 ? campaignsFiltered : campaigns).map(
           (service, index) => (
             <div
               key={index}
@@ -82,10 +86,7 @@ export function ClientsList({ clients }: Props) {
               />
               <div>
                 <h4>{service.name}</h4>
-                <p>
-                  {service.phone.replace(/(\d{2})(\d{5})(\d{4})/, "($1) $2-$3")}{" "}
-                  - {service.birthday}
-                </p>
+                <p>{service.status}</p>
               </div>
             </div>
           )
