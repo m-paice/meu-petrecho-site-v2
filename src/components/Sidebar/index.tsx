@@ -84,11 +84,10 @@ export function Sidebar() {
                 display: "flex",
                 gap: 10,
                 alignItems: "center",
-                backgroundColor: "white",
                 margin: "15px 0",
                 borderRadius: 5,
                 backgroundColor:
-                  location.pathname === route.path ? "#ED3B47" : "white",
+                  location.pathname === route.path ? "#e34954" : "white",
                 color: location.pathname === route.path ? "white" : "black",
                 transition: "0.3s",
               }}

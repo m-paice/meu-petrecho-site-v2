@@ -135,6 +135,6 @@ const styles: { [key: string]: CSSProperties } = {
     gap: 10,
   },
   totalValue: {
-    color: "#ed3b47",
+    color: "#e34954",
   },
 };

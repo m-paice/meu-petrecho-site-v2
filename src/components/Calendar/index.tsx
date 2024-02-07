@@ -219,17 +219,17 @@ export function Calendar({
                     >
                       {schedulesConfirmed.length > 0 && (
                         <div style={{ ...styles.badge, ...styles.confirmed }}>
-                          {schedulesConfirmed.length}
+                          {schedulesConfirmed.length} item
                         </div>
                       )}
                       {schedulesCanceled.length > 0 && (
                         <div style={{ ...styles.badge, ...styles.canceled }}>
-                          {schedulesCanceled.length}
+                          {schedulesCanceled.length} item
                         </div>
                       )}
                       {schedulesPending.length > 0 && (
                         <div style={{ ...styles.badge, ...styles.pending }}>
-                          {schedulesPending.length}
+                          {schedulesPending.length} item
                         </div>
                       )}
                     </div>

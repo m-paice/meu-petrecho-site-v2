@@ -59,34 +59,13 @@ export function Item({ text, color }: Props) {
           <Menu.Items>
             <div style={styles.containerOptions}>
               <Menu.Item>
-                <button
-                  style={{
-                    ...styles.button,
-                    ...styles.confirmed,
-                  }}
-                >
-                  Finalizar
-                </button>
+                <button style={styles.button}>Finalizar</button>
               </Menu.Item>
               <Menu.Item>
-                <button
-                  style={{
-                    ...styles.button,
-                    ...styles.canceled,
-                  }}
-                >
-                  Cancelar
-                </button>
+                <button style={styles.button}>Cancelar</button>
               </Menu.Item>
               <Menu.Item>
-                <button
-                  style={{
-                    ...styles.button,
-                    ...styles.restored,
-                  }}
-                >
-                  Restaurar
-                </button>
+                <button style={styles.button}>Restaurar</button>
               </Menu.Item>
 
               <div
@@ -98,24 +77,10 @@ export function Item({ text, color }: Props) {
                 }}
               />
               <Menu.Item>
-                <button
-                  style={{
-                    ...styles.button,
-                    ...styles.default,
-                  }}
-                >
-                  Editar
-                </button>
+                <button style={styles.button}>Editar</button>
               </Menu.Item>
               <Menu.Item>
-                <button
-                  style={{
-                    ...styles.button,
-                    ...styles.default,
-                  }}
-                >
-                  Deletar
-                </button>
+                <button style={styles.button}>Deletar</button>
               </Menu.Item>
             </div>
           </Menu.Items>
@@ -172,15 +137,17 @@ const styles = {
   },
   default: {
     backgroundColor: "rgba(237, 59, 71, 0.3)",
-    color: "#ED3B47",
+    color: "#e34954",
   },
 
   button: {
     padding: "5px 10px",
-    color: "#fff",
+    color: "#000",
+    backgroundColor: "transparent",
     border: "none",
     cursor: "pointer",
     borderRadius: 3,
     fontSize: 14,
+    textAlign: "left",
   },
 };
