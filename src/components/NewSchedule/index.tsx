@@ -35,6 +35,7 @@ export function NewSchedule({ onConfirm, selectedDate }: Props) {
             fontSize: 24,
             backgroundColor: "transparent",
             outline: "none",
+            border: "none",
           }}
         />
       </div>
@@ -105,7 +106,7 @@ const styles: { [key: string]: CSSProperties } = {
     gap: "20px",
   },
   schedule: {
-    backgroundColor: "#D9D9D9",
+    backgroundColor: "#ebf3fe",
     padding: "10px",
     display: "flex",
     justifyContent: "space-between",

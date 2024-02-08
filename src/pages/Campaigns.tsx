@@ -146,7 +146,7 @@ export function Campaigns() {
 
       <div style={styles.grid}>
         <div style={styles.wrapperActions}>
-          <CampaignsNew />
+          {/* <CampaignsNew /> */}
           <CampaignsFilter />
         </div>
         <CampaignsList campaigns={campaigns} />
@@ -168,7 +168,7 @@ const styles = {
   },
   grid: {
     display: "grid",
-    gridTemplateColumns: "200px 400px 1fr",
+    gridTemplateColumns: "200px 300px 1fr",
     gridTemplateRows: "calc(100vh - 200px)",
   },
   wrapperActions: {

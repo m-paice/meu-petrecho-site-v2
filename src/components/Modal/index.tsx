@@ -10,7 +10,7 @@ interface Props {
 }
 
 const sizes = {
-  small: "400px",
+  small: "450px",
   medium: "700px",
   large: "900px",
 };
@@ -58,7 +58,15 @@ export function Modal({
                   >
                     {title}
                   </Dialog.Title>
-                  <div>{children}</div>
+                  <div
+                    style={{
+                      minHeight: 200,
+                      display: "flex",
+                      flexDirection: "column",
+                    }}
+                  >
+                    {children}
+                  </div>
                 </Dialog.Panel>
               </Transition.Child>
             </div>

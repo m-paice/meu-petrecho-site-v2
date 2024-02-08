@@ -133,7 +133,7 @@ const styles = {
   },
   grid: {
     display: "grid",
-    gridTemplateColumns: "200px 400px 1fr",
+    gridTemplateColumns: "200px 300px 1fr",
     gridTemplateRows: "calc(100vh - 200px)",
   },
   wrapperActions: {

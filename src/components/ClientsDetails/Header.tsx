@@ -1,8 +1,10 @@
+import { useState } from "react";
 import { PencilIcon, TrashIcon } from "@heroicons/react/20/solid";
-import { useNavigate } from "react-router-dom";
+
+import { DeleteModal } from "./DeleteModal";
 
 export function Header() {
-  const navigate = useNavigate();
+  const [open, setOpen] = useState(false);
   return (
     <div style={styles.container}>
       <h4>Detalhes</h4>
@@ -12,14 +14,16 @@ export function Header() {
           gap: 20,
         }}
       >
-        <PencilIcon
+        <PencilIcon width={20} color="gray" style={{ cursor: "pointer" }} />
+        <TrashIcon
           width={20}
           color="gray"
           style={{ cursor: "pointer" }}
-          onClick={() => navigate("/clients/1/edit")}
+          onClick={() => setOpen(!open)}
         />
-        <TrashIcon width={20} color="gray" style={{ cursor: "pointer" }} />
       </div>
+
+      <DeleteModal open={open} setOpen={setOpen} />
     </div>
   );
 }
