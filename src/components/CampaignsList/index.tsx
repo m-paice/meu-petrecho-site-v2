@@ -1,8 +1,10 @@
 import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
 import { useMemo, useState } from "react";
+import { Avatar } from "../Avatar";
 
 interface Props {
   campaigns: {
+    id: string;
     name: string;
     clients: {
       name: string;
@@ -16,6 +18,8 @@ interface Props {
 
 export function CampaignsList({ campaigns }: Props) {
   const [search, setSearch] = useState("");
+  const [selected, setSelected] = useState("");
+  const [isHovered, setIsHovered] = useState("");
 
   const campaignsFiltered = useMemo(() => {
     return search.length > 0
@@ -67,26 +71,39 @@ export function CampaignsList({ campaigns }: Props) {
           <p style={{ textAlign: "center" }}>Nenhum cliente encontrado</p>
         )}
         {(search.length > 0 ? campaignsFiltered : campaigns).map(
-          (service, index) => (
+          (campaign, index) => (
             <div
               key={index}
               style={{
                 margin: "10px 0",
                 display: "flex",
                 gap: 10,
+                padding: "10px 5px",
+                borderRadius: 5,
+                cursor: "pointer",
+                transition: "color 0.3s, background-color 0.3s ease",
+                color:
+                  isHovered === campaign.id || selected === campaign.id
+                    ? "#e34954"
+                    : "",
+                backgroundColor:
+                  isHovered === campaign.id ? "rgba(250, 137, 107, 0.1)" : "",
               }}
+              onClick={() => setSelected(campaign.id)}
+              onMouseEnter={() => setIsHovered(campaign.id)}
+              onMouseLeave={() => setIsHovered("")}
             >
-              <div
-                style={{
-                  width: 50,
-                  height: 50,
-                  backgroundColor: "#e6e6e6",
-                  borderRadius: 50,
-                }}
+              <Avatar
+                color={
+                  isHovered === campaign.id || selected === campaign.id
+                    ? "rgba(250, 137, 107, 0.1)"
+                    : ""
+                }
+                size="small"
               />
               <div>
-                <h4>{service.name}</h4>
-                <p>{service.status}</p>
+                <h4>{campaign.name}</h4>
+                <p>{campaign.status}</p>
               </div>
             </div>
           )

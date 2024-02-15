@@ -40,17 +40,17 @@ export function ClientsNew() {
               <Input
                 label="Nome"
                 placeholder="Digite o nome do cliente"
-                id="name"
+                name="name"
               />
               <Input
                 label="Telefone"
                 placeholder="Digite o telefone do cliente"
-                id="cellPhone"
+                name="cellPhone"
               />
               <Input
                 label="Mês de aniversário"
                 placeholder="Digite o mês de aniversário do cliente"
-                id="birthMonth"
+                name="birthMonth"
               />
               <Button title="Salvar" />
             </form>

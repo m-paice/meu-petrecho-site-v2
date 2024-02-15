@@ -1,5 +1,4 @@
 import { CSSProperties } from "react";
-import "./style.css";
 
 import { colors } from "../../theme";
 import { Item } from "../Item";

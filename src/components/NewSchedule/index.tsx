@@ -41,12 +41,12 @@ export function NewSchedule({ onConfirm, selectedDate }: Props) {
       </div>
 
       <div style={styles.inputs}>
-        <Input label="Cliente" placeholder="Nome do cliente" id="client" />
-        <Input label="Serviço" placeholder="Nome do serviço" id="service" />
+        <Input label="Cliente" placeholder="Nome do cliente" name="client" />
+        <Input label="Serviço" placeholder="Nome do serviço" name="service" />
         <Input
           label="Funcionário"
           placeholder="Nome do funcionário"
-          id="employee"
+          name="employee"
         />
       </div>
 
@@ -80,12 +80,12 @@ export function NewSchedule({ onConfirm, selectedDate }: Props) {
           <Input
             label="Desconto"
             placeholder="Valor do desconto"
-            id="discount"
+            name="discount"
           />
           <Input
             label="Adicional"
             placeholder="Valor do adicional"
-            id="addition"
+            name="addition"
           />
         </div>
         <div style={styles.total}>

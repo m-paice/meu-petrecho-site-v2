@@ -1,12 +1,16 @@
 import { Menu, Transition } from "@headlessui/react";
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 
 interface Props {
   text: string;
   color: string;
 }
 
+const actions = ["Finalizar", "Cancelar", "Restaurar", "Editar", "Deletar"];
+
 export function Item({ text, color }: Props) {
+  const [isHovered, setIsHovered] = useState("");
+
   return (
     <div
       style={{
@@ -58,30 +62,27 @@ export function Item({ text, color }: Props) {
         >
           <Menu.Items>
             <div style={styles.containerOptions}>
-              <Menu.Item>
-                <button style={styles.button}>Finalizar</button>
-              </Menu.Item>
-              <Menu.Item>
-                <button style={styles.button}>Cancelar</button>
-              </Menu.Item>
-              <Menu.Item>
-                <button style={styles.button}>Restaurar</button>
-              </Menu.Item>
-
-              <div
-                style={{
-                  width: "100%",
-                  height: 1,
-                  backgroundColor: "#e6e6e6",
-                  margin: "10px 0",
-                }}
-              />
-              <Menu.Item>
-                <button style={styles.button}>Editar</button>
-              </Menu.Item>
-              <Menu.Item>
-                <button style={styles.button}>Deletar</button>
-              </Menu.Item>
+              {actions.map((action) => (
+                <Menu.Item key={action}>
+                  <button
+                    onClick={() => {
+                      setIsHovered("");
+                    }}
+                    onMouseEnter={() => setIsHovered(action)}
+                    onMouseLeave={() => setIsHovered("")}
+                    style={{
+                      ...styles.button,
+                      color: isHovered === action ? "#e34954" : "#000",
+                      backgroundColor:
+                        isHovered === action
+                          ? "rgba(250, 137, 107, 0.3)"
+                          : "transparent",
+                    }}
+                  >
+                    {action}
+                  </button>
+                </Menu.Item>
+              ))}
             </div>
           </Menu.Items>
         </Transition>
@@ -149,5 +150,6 @@ const styles = {
     borderRadius: 3,
     fontSize: 14,
     textAlign: "left",
+    transition: "0.3s",
   },
 };

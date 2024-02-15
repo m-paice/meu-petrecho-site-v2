@@ -1,8 +1,9 @@
 interface Props {
   size?: "small" | "medium" | "large";
+  color?: string;
 }
 
-export function Avatar({ size = "medium" }: Props) {
+export function Avatar({ size = "medium", color }: Props) {
   const sizes = {
     small: 40,
     medium: 80,
@@ -14,7 +15,7 @@ export function Avatar({ size = "medium" }: Props) {
       style={{
         width: sizes[size],
         height: sizes[size],
-        backgroundColor: "#e6e6e6",
+        backgroundColor: color || "#e6e6e6",
         borderRadius: sizes[size],
       }}
     />

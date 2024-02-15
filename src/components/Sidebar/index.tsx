@@ -2,35 +2,37 @@ import { useNavigate } from "react-router-dom";
 
 import { CalendarIcon, UsersIcon, WrenchIcon } from "@heroicons/react/20/solid";
 
-import "./style.css";
 import { useLayoutContext } from "../../context/layout";
+import { useState } from "react";
 
 const routes = [
   {
     path: "/schedules",
     label: "Agenda",
-    icon: <CalendarIcon width={20} />,
+    icon: CalendarIcon,
   },
   {
     path: "/clients",
     label: "Clientes",
-    icon: <UsersIcon width={20} />,
+    icon: UsersIcon,
   },
   {
     path: "/services",
     label: "Serviços",
-    icon: <WrenchIcon width={20} />,
+    icon: WrenchIcon,
   },
   {
     path: "/campaigns",
     label: "Campanhas",
-    icon: <WrenchIcon width={20} />,
+    icon: WrenchIcon,
   },
 ];
 
 export function Sidebar() {
   const navigate = useNavigate();
   const { hideSidebar } = useLayoutContext();
+
+  const [isHovered, setIsHovered] = useState("");
 
   return (
     <div
@@ -78,6 +80,8 @@ export function Sidebar() {
             <li
               key={route.path}
               onClick={() => navigate(route.path)}
+              onMouseEnter={() => setIsHovered(route.path)}
+              onMouseLeave={() => setIsHovered("")}
               style={{
                 padding: "10px",
                 cursor: "pointer",
@@ -88,16 +92,30 @@ export function Sidebar() {
                 borderRadius: 5,
                 borderTopLeftRadius: 20,
                 borderBottomLeftRadius: 20,
-                backgroundColor: location.pathname.includes(route.path)
-                  ? "#e34954"
-                  : "white",
+                backgroundColor:
+                  isHovered === route.path &&
+                  !location.pathname.includes(route.path)
+                    ? "rgba(250, 137, 107, 0.3)"
+                    : location.pathname.includes(route.path)
+                    ? "#e34954"
+                    : "white",
                 color: location.pathname.includes(route.path)
                   ? "white"
                   : "black",
                 transition: "0.3s",
               }}
             >
-              {route.icon}
+              {route.icon ? (
+                <route.icon
+                  width={20}
+                  color={
+                    isHovered === route.path &&
+                    !location.pathname.includes(route.path)
+                      ? "#e34954"
+                      : ""
+                  }
+                />
+              ) : null}
               {hideSidebar ? null : <p>{route.label}</p>}
             </li>
           ))}

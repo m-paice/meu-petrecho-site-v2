@@ -1,5 +1,4 @@
-import "./syles.css";
-
+import { useState } from "react";
 import { colors } from "../../theme";
 
 interface Props {
@@ -21,14 +20,25 @@ export function Button({
   onClick,
   size = "medium",
 }: Props) {
+  const [isHovered, setIsHovered] = useState(false);
+
   return (
     <button
       onClick={onClick}
       style={{
         padding: "10px",
-        backgroundColor: type === "filled" ? colors.primary : "transparent",
+        transition: "0.3s",
+        backgroundColor: isHovered
+          ? "rgba(250, 137, 107, 0.3)"
+          : type === "filled"
+          ? colors.primary
+          : "transparent",
         border: type === "filled" ? "none" : `2px solid ${colors.primary}`,
-        color: type === "filled" ? colors.white : colors.primary,
+        color: isHovered
+          ? "#e34954"
+          : type === "filled"
+          ? colors.white
+          : colors.primary,
         borderRadius: "7px",
         cursor: "pointer",
         width: "100%",
@@ -36,6 +46,8 @@ export function Button({
         fontWeight: "bold",
         outline: "none",
       }}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
     >
       {title}
     </button>

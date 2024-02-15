@@ -34,17 +34,17 @@ export function FormServices() {
           <Input
             label="Nome"
             placeholder="Digite o nome do serviço"
-            id="name"
+            name="name"
           />
           <Input
             label="Valor"
             placeholder="Digite o valor do serviço"
-            id="price"
+            name="price"
           />
           <Input
             label="Tempo de atendimento"
             placeholder="Digite o tempo de atendimento do serviço"
-            id="time"
+            name="time"
           />
           <Button title="Salvar" />
         </form>

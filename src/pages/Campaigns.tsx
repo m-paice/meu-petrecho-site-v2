@@ -1,12 +1,10 @@
-import { Chart } from "react-google-charts";
-
 import { CampaignsList } from "../components/CampaignsList";
 import { CampaignsDetails } from "../components/CampaignsDetails";
-import { CampaignsNew } from "../components/CampaignsNew";
 import { CampaignsFilter } from "../components/CampaignsFilter";
 
 const campaigns = [
   {
+    id: "1",
     name: "Campanha 1",
     clients: [
       {
@@ -68,6 +66,7 @@ const campaigns = [
     status: "Em andamento",
   },
   {
+    id: "2",
     name: "Campanha 2",
     clients: [
       {
@@ -87,6 +86,7 @@ const campaigns = [
     status: "Inativo",
   },
   {
+    id: "3",
     name: "Campanha 3",
     clients: [
       {

@@ -6,6 +6,7 @@ interface Props {
     scheduleAt: string;
   };
   campaign: {
+    id: string;
     status: string;
   };
 }
