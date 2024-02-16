@@ -3,7 +3,7 @@ import { colors } from "../../theme";
 
 interface Props {
   title: string;
-  type?: "outiline" | "filled";
+  variant?: "outiline" | "filled";
   onClick?: () => void;
   size?: "small" | "medium" | "large";
 }
@@ -16,7 +16,7 @@ const sizes = {
 
 export function Button({
   title,
-  type = "filled",
+  variant = "filled",
   onClick,
   size = "medium",
 }: Props) {
@@ -30,18 +30,19 @@ export function Button({
         transition: "0.3s",
         backgroundColor: isHovered
           ? "rgba(250, 137, 107, 0.3)"
-          : type === "filled"
+          : variant === "filled"
           ? colors.primary
           : "transparent",
-        border: type === "filled" ? "none" : `2px solid ${colors.primary}`,
+        border: variant === "filled" ? "none" : `1px solid ${colors.primary}`,
         color: isHovered
           ? "#e34954"
-          : type === "filled"
+          : variant === "filled"
           ? colors.white
           : colors.primary,
         borderRadius: "7px",
         cursor: "pointer",
         width: "100%",
+        minWidth: "100px",
         fontSize: sizes[size] || sizes.medium,
         fontWeight: "bold",
         outline: "none",

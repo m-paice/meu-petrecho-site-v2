@@ -7,25 +7,25 @@ import { useState } from "react";
 
 const routes = [
   {
-    path: "/schedules",
-    label: "Agenda",
+    path: "/sales",
+    label: "Vendas",
     icon: CalendarIcon,
   },
   {
-    path: "/clients",
-    label: "Clientes",
+    path: "/products",
+    label: "Produtos",
     icon: UsersIcon,
   },
   {
-    path: "/services",
-    label: "Serviços",
+    path: "/categories",
+    label: "Categorias",
     icon: WrenchIcon,
   },
-  {
-    path: "/campaigns",
-    label: "Campanhas",
-    icon: WrenchIcon,
-  },
+  // {
+  //   path: "/reports",
+  //   label: "Relatórios",
+  //   icon: WrenchIcon,
+  // },
 ];
 
 export function Sidebar() {
