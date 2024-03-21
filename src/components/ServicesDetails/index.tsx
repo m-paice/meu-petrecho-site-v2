@@ -1,7 +1,7 @@
 import { Avatar } from "../Avatar";
 import { Header } from "./Header";
 
-export function CategoriesDetails() {
+export function ServicesDetails() {
   return (
     <div>
       <Header />
@@ -19,7 +19,18 @@ export function CategoriesDetails() {
           <Avatar />
           <div>
             <h4>Tecnologias</h4>
-            <p>51 produtos</p>
+            <p>51 clientes</p>
+          </div>
+        </div>
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "1fr 1fr",
+          }}
+        >
+          <div>
+            <p>Preço:</p>
+            <p>R$ 1.200,00</p>
           </div>
         </div>
       </section>

@@ -2,24 +2,25 @@ import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
 import { useMemo, useState } from "react";
 
 interface Props {
-  categories: {
+  clients: {
     id: string;
     name: string;
+    cellPhone: string;
   }[];
 }
 
-export function CategoriesList({ categories }: Props) {
+export function ClientsList({ clients }: Props) {
   const [search, setSearch] = useState("");
   const [selected, setSelected] = useState("");
   const [isHovered, setIsHovered] = useState("");
 
-  const categoriesFiltered = useMemo(() => {
+  const clientsFiltered = useMemo(() => {
     return search.length > 0
-      ? categories.filter((client) =>
+      ? clients.filter((client) =>
           client.name.toLowerCase().includes(search.toLowerCase())
         )
       : [];
-  }, [search, categories]);
+  }, [search, clients]);
 
   return (
     <div
@@ -59,11 +60,11 @@ export function CategoriesList({ categories }: Props) {
           marginTop: 20,
         }}
       >
-        {search.length > 0 && categoriesFiltered.length === 0 && (
+        {search.length > 0 && clientsFiltered.length === 0 && (
           <p style={{ textAlign: "center" }}>Nenhum cliente encontrado</p>
         )}
-        {(search.length > 0 ? categoriesFiltered : categories).map(
-          (category, index) => (
+        {(search.length > 0 ? clientsFiltered : clients).map(
+          (client, index) => (
             <div
               key={index}
               style={{
@@ -75,14 +76,14 @@ export function CategoriesList({ categories }: Props) {
                 cursor: "pointer",
                 transition: "color 0.3s, background-color 0.3s ease",
                 color:
-                  isHovered === category.id || selected === category.id
+                  isHovered === client.id || selected === client.id
                     ? "#e34954"
                     : "",
                 backgroundColor:
-                  isHovered === category.id ? "rgba(250, 137, 107, 0.1)" : "",
+                  isHovered === client.id ? "rgba(250, 137, 107, 0.1)" : "",
               }}
-              onClick={() => setSelected(category.id)}
-              onMouseEnter={() => setIsHovered(category.id)}
+              onClick={() => setSelected(client.id)}
+              onMouseEnter={() => setIsHovered(client.id)}
               onMouseLeave={() => setIsHovered("")}
             >
               <div
@@ -94,7 +95,8 @@ export function CategoriesList({ categories }: Props) {
                 }}
               />
               <div>
-                <h4>{category.name}</h4>
+                <h4>{client.name}</h4>
+                <p>{client.cellPhone}</p>
               </div>
             </div>
           )

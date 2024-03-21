@@ -9,7 +9,7 @@ interface Props {
 export function DeleteModal({ open, setOpen }: Props) {
   return (
     <Modal
-      title="Remover categoria"
+      title="Remover serviço"
       isOpen={open}
       closeModal={() => setOpen(false)}
       size="small"
@@ -31,7 +31,7 @@ export function DeleteModal({ open, setOpen }: Props) {
           }}
         >
           <p style={{ textAlign: "center", fontSize: 18 }}>
-            Tem certeza que deseja remover <br /> a categoria <b>Tecnologia</b>?
+            Tem certeza que deseja remover <br /> a serviço <b>Tecnologia</b>?
           </p>
         </div>
 

@@ -2,28 +2,23 @@ import { useState } from "react";
 import dayjs from "dayjs";
 
 import { Styles } from "../types/home";
-import { useToggle } from "../hooks/useToggle";
 import { Calendar } from "../components/Calendar";
 import { Items } from "../components/Items";
 import { Button } from "../components/Button";
 import { SelectedDay } from "../components/SelectedDay";
-import { Modal } from "../components/Modal";
-import { SalesNew } from "../components/SalesNew";
 
-export function Sales() {
+export function Schedules() {
   const [currentDate, setCurrentDate] = useState(
     dayjs(new Date()).startOf("month")
   );
   const [selectedDate, setSelectedDate] = useState(dayjs(new Date()));
-
-  const { isOpen, toggle } = useToggle();
 
   return (
     <div style={styles.container}>
       <section style={styles.leftSection}>
         <SelectedDay selectedDate={selectedDate} />
         <Items />
-        <Button title="Registrar venda" size="large" onClick={toggle} />
+        <Button title={"novo agendamento".toUpperCase()} size="large" />
       </section>
       <section style={styles.rightSection}>
         <Calendar
@@ -33,10 +28,6 @@ export function Sales() {
           setCurrentDate={setCurrentDate}
         />
       </section>
-
-      <Modal title="Registrando de venda" isOpen={isOpen} closeModal={toggle}>
-        <SalesNew onClose={toggle} />
-      </Modal>
     </div>
   );
 }

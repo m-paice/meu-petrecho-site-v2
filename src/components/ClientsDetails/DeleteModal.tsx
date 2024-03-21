@@ -9,7 +9,7 @@ interface Props {
 export function DeleteModal({ open, setOpen }: Props) {
   return (
     <Modal
-      title="Remover produto"
+      title="Remover cliente"
       isOpen={open}
       closeModal={() => setOpen(false)}
       size="small"
@@ -31,7 +31,7 @@ export function DeleteModal({ open, setOpen }: Props) {
           }}
         >
           <p style={{ textAlign: "center", fontSize: 18 }}>
-            Tem certeza que deseja remover <br /> o produto <b>Notebook</b>?
+            Tem certeza que deseja remover <br /> o cliente <b>Notebook</b>?
           </p>
         </div>
 

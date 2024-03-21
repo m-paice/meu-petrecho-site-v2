@@ -4,14 +4,19 @@ import { Modal } from "../Modal";
 import { Input } from "../Input";
 import { Avatar } from "../Avatar";
 
-export function CategoriesNew() {
+export function ClientsNew() {
   const [open, setOpen] = useState(false);
+  const [file, setFile] = useState<File | null>(null);
+
   return (
     <div>
-      <Button title="Nova categoria" onClick={() => setOpen(!open)} />
+      <Button
+        title={"Novo Cliente".toUpperCase()}
+        onClick={() => setOpen(!open)}
+      />
 
       <Modal
-        title="Nova categoria"
+        title="Novo cliente"
         isOpen={open}
         closeModal={() => setOpen(false)}
         size="medium"
@@ -38,20 +43,20 @@ export function CategoriesNew() {
                 marginTop: 40,
               }}
             >
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <Avatar size="large" />
-              </div>
               <Input
                 label="Nome"
-                placeholder="Digite o nome da categoria"
+                placeholder="Digite o nome do cliente"
                 name="name"
+              />
+              <Input
+                label="Telefone"
+                placeholder="Digite o telefone do cliente"
+                name="cellPhone"
+              />
+              <Input
+                label="Mês de aniversário"
+                placeholder="Digite o mês de aniversário do cliente"
+                name="birthMonth"
               />
 
               <Button title="Salvar" />

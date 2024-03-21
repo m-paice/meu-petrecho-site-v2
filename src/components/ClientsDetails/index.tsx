@@ -1,7 +1,7 @@
 import { Avatar } from "../Avatar";
 import { Header } from "./Header";
 
-export function ProductsDetails() {
+export function ClientsDetails() {
   return (
     <div>
       <Header />
@@ -19,7 +19,7 @@ export function ProductsDetails() {
           <Avatar />
           <div>
             <h4>Notebook</h4>
-            <p>Tecnologia</p>
+            <p>(11) 99999-9999</p>
           </div>
         </div>
 
@@ -28,7 +28,7 @@ export function ProductsDetails() {
             marginTop: 20,
           }}
         >
-          <h4>Informações do produto</h4>
+          <h4>Informações do cliente</h4>
           <div
             style={{
               display: "grid",
@@ -36,12 +36,8 @@ export function ProductsDetails() {
             }}
           >
             <div>
-              <p>Preço:</p>
-              <p>R$ 1.200,00</p>
-            </div>
-            <div>
-              <p>Quantidade em estoque:</p>
-              <p>10</p>
+              <p>Mês de aniversário:</p>
+              <p>Janeiro</p>
             </div>
           </div>
         </div>

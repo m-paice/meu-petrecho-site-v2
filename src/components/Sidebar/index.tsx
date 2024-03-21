@@ -7,18 +7,18 @@ import { useState } from "react";
 
 const routes = [
   {
-    path: "/sales",
-    label: "Vendas",
+    path: "/schedules",
+    label: "Agendamentos",
     icon: CalendarIcon,
   },
   {
-    path: "/products",
-    label: "Produtos",
+    path: "/services",
+    label: "Serviços",
     icon: UsersIcon,
   },
   {
-    path: "/categories",
-    label: "Categorias",
+    path: "/clients",
+    label: "Clientes",
     icon: WrenchIcon,
   },
   // {

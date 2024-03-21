@@ -3,7 +3,7 @@ import { useState } from "react";
 interface Props {
   label: string;
   placeholder: string;
-  name: string;
+  name?: string;
   size?: "small" | "medium" | "large";
 }
 

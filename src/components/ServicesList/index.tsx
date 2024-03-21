@@ -2,26 +2,24 @@ import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
 import { useMemo, useState } from "react";
 
 interface Props {
-  products: {
+  services: {
     id: string;
     name: string;
-    category: string;
-    price: number;
   }[];
 }
 
-export function ProductsList({ products }: Props) {
+export function ServicesList({ services }: Props) {
   const [search, setSearch] = useState("");
   const [selected, setSelected] = useState("");
   const [isHovered, setIsHovered] = useState("");
 
-  const productsFiltered = useMemo(() => {
+  const servicesFiltered = useMemo(() => {
     return search.length > 0
-      ? products.filter((client) =>
+      ? services.filter((client) =>
           client.name.toLowerCase().includes(search.toLowerCase())
         )
       : [];
-  }, [search, products]);
+  }, [search, services]);
 
   return (
     <div
@@ -61,11 +59,11 @@ export function ProductsList({ products }: Props) {
           marginTop: 20,
         }}
       >
-        {search.length > 0 && productsFiltered.length === 0 && (
+        {search.length > 0 && servicesFiltered.length === 0 && (
           <p style={{ textAlign: "center" }}>Nenhum cliente encontrado</p>
         )}
-        {(search.length > 0 ? productsFiltered : products).map(
-          (product, index) => (
+        {(search.length > 0 ? servicesFiltered : services).map(
+          (category, index) => (
             <div
               key={index}
               style={{
@@ -77,14 +75,14 @@ export function ProductsList({ products }: Props) {
                 cursor: "pointer",
                 transition: "color 0.3s, background-color 0.3s ease",
                 color:
-                  isHovered === product.id || selected === product.id
+                  isHovered === category.id || selected === category.id
                     ? "#e34954"
                     : "",
                 backgroundColor:
-                  isHovered === product.id ? "rgba(250, 137, 107, 0.1)" : "",
+                  isHovered === category.id ? "rgba(250, 137, 107, 0.1)" : "",
               }}
-              onClick={() => setSelected(product.id)}
-              onMouseEnter={() => setIsHovered(product.id)}
+              onClick={() => setSelected(category.id)}
+              onMouseEnter={() => setIsHovered(category.id)}
               onMouseLeave={() => setIsHovered("")}
             >
               <div
@@ -96,8 +94,7 @@ export function ProductsList({ products }: Props) {
                 }}
               />
               <div>
-                <h4>{product.name}</h4>
-                <p>{product.category}</p>
+                <h4>{category.name}</h4>
               </div>
             </div>
           )

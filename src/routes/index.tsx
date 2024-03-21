@@ -2,9 +2,9 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import { Login } from "../pages/Login";
 import { DashboardLayout } from "./DashboardLayout";
-import { Sales } from "../pages/Sales";
-import { Products } from "../pages/Products";
-import { Categories } from "../pages/Categories";
+import { Services } from "../pages/Services";
+import { Clients } from "../pages/Clients";
+import { Schedules } from "../pages/Schedules";
 
 const router = createBrowserRouter([
   {
@@ -15,16 +15,16 @@ const router = createBrowserRouter([
     element: <DashboardLayout />,
     children: [
       {
-        path: "/sales",
-        element: <Sales />,
+        path: "/schedules",
+        element: <Schedules />,
       },
       {
-        path: "/products",
-        element: <Products />,
+        path: "/services",
+        element: <Services />,
       },
       {
-        path: "/categories",
-        element: <Categories />,
+        path: "/clients",
+        element: <Clients />,
       },
     ],
   },
