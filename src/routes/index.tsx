@@ -23,6 +23,22 @@ const router = createBrowserRouter([
         element: <Services />,
       },
       {
+        path: "/services/:id",
+        element: <Services />,
+      },
+      {
+        path: "/services/:id/delete",
+        element: <Services />,
+      },
+      {
+        path: "/services/:id/edit",
+        element: <Services />,
+      },
+      {
+        path: "/services/new",
+        element: <Services />,
+      },
+      {
         path: "/clients",
         element: <Clients />,
       },

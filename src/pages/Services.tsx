@@ -1,34 +1,36 @@
+import { useEffect } from "react";
+
 import { ServicesList } from "../components/ServicesList";
 import { ServicesDetails } from "../components/ServicesDetails";
 import { ServicesNew } from "../components/ServicesNew";
 import { ServicesFilter } from "../components/ServicesFilter";
+import { Loading } from "../components/Loading";
+import { useRequestFindMany } from "../hooks/useRequestFindMany";
+import { ResponseAPI } from "../types/ResponseAPI";
 
-const services = [
-  {
-    id: "1",
-    name: "Corte Social",
-  },
-  {
-    id: "2",
-    name: "Barba",
-  },
-  {
-    id: "3",
-    name: "Corte degrade",
-  },
-  {
-    id: "4",
-    name: "Pigmentação",
-  },
-  {
-    id: "5",
-    name: "Corte infantil",
-  },
-];
+export interface Service {
+  id: string;
+  name: string;
+  price: number;
+  averageTime: number;
+}
 
 export function Services() {
+  const {
+    execute: executeFindManyServices,
+    response: serivices,
+    loading,
+  } = useRequestFindMany<ResponseAPI<Service[]>>({
+    path: "/services",
+  });
+
+  useEffect(() => {
+    if (window.location.pathname === "/services") executeFindManyServices();
+  }, [window.location.pathname]);
+
   return (
     <div>
+      <Loading isLoading={loading} />
       <div style={styles.container}>
         <h4
           style={{
@@ -44,7 +46,7 @@ export function Services() {
           <ServicesNew />
           <ServicesFilter />
         </div>
-        <ServicesList services={services} />
+        <ServicesList services={serivices?.data || []} />
         <ServicesDetails />
       </div>
     </div>

@@ -4,11 +4,14 @@ import { Fragment, useState } from "react";
 interface Props {
   text: string;
   color: string;
+  scheduleAt: string;
+  services: string;
+  user: string;
 }
 
 const actions = ["Finalizar", "Cancelar", "Restaurar", "Editar", "Deletar"];
 
-export function Item({ text, color }: Props) {
+export function Item({ text, color, scheduleAt, services, user }: Props) {
   const [isHovered, setIsHovered] = useState("");
 
   return (
@@ -36,7 +39,7 @@ export function Item({ text, color }: Props) {
                   width: "100%",
                 }}
               >
-                <b style={{ fontSize: 18 }}>8:00 AM</b>
+                <b style={{ fontSize: 18 }}>{scheduleAt}</b>
                 <span
                   style={{
                     backgroundColor: color,
@@ -46,8 +49,8 @@ export function Item({ text, color }: Props) {
                   {text}
                 </span>
               </div>
-              <p style={{ fontSize: 16 }}>Matheus Paice</p>
-              <p style={{ fontSize: 16 }}>Corte degrade, barba</p>
+              <p style={{ fontSize: 16 }}>{user}</p>
+              <p style={{ fontSize: 16 }}>{services}</p>
             </div>
           </Menu.Button>
         </div>

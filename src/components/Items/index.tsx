@@ -3,23 +3,38 @@ import { CSSProperties } from "react";
 import { colors } from "../../theme";
 import { Item } from "../Item";
 
-const status: { [key: number]: { color: string; text: string } } = {
-  1: { color: "#13deb9", text: "finalizado" },
-  2: { color: "#ffae1f", text: "pendente" },
-  3: { color: "#fa896b", text: "cancelado" },
+interface Props {
+  schedules: {
+    id: string;
+    status: "finished" | "canceled" | "pending";
+    scheduleAt: string;
+    services: string;
+    user: string;
+  }[];
+}
+
+const status: { [key: string]: { color: string; text: string } } = {
+  finished: { color: "#13deb9", text: "finalizado" },
+  pending: { color: "#ffae1f", text: "pendente" },
+  canceled: { color: "#fa896b", text: "cancelado" },
 };
 
-export function Items() {
+export function Items({ schedules }: Props) {
   return (
     <div>
       <div>
-        <span style={styles.title}>8 Items</span>
+        <span style={styles.title}>
+          {schedules.length} {schedules.length > 1 ? "items" : "item"}
+        </span>
       </div>
       <div style={styles.container}>
-        {Array.from({ length: 8 }).map((_, i) => {
-          const { color, text } = status[Math.floor(Math.random() * 3) + 1];
+        {schedules.map((item) => {
+          const { color, text } = status[item.status] || {
+            color: "",
+            text: "",
+          };
 
-          return <Item key={i} text={text} color={color} />;
+          return <Item key={item.id} text={text} color={color} {...item} />;
         })}
       </div>
     </div>

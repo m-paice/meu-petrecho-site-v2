@@ -1,9 +1,58 @@
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useFormik } from "formik";
+import * as yup from "yup";
+
 import { Button } from "../components/Button";
 import { Input } from "../components/Input";
+import { useRequestCreate } from "../hooks/useRequestCreate";
+import { maskTextCellPhone } from "../hooks/maskText";
+
+const initialValues = {
+  username: "",
+  password: "",
+};
+
+const validationSchema = yup.object().shape({
+  username: yup.string().required("Campo obrigatório"),
+  password: yup.string().required("Campo obrigatório"),
+});
 
 export function Login() {
   const navigate = useNavigate();
+
+  const { execute: executeAuthLogin, response: responseAuthLogin } =
+    useRequestCreate<{ token: string; user: { accountId: string } }>({
+      path: "/auth",
+    });
+
+  const {
+    handleSubmit,
+    errors,
+    touched,
+    values,
+    handleBlur,
+    handleChange,
+    setFieldValue,
+  } = useFormik({
+    initialValues,
+    validationSchema,
+    onSubmit(values) {
+      const payload = {
+        username: values.username.replace(/\D/g, ""),
+        password: values.password,
+      };
+      executeAuthLogin(payload);
+    },
+  });
+
+  useEffect(() => {
+    if (responseAuthLogin) {
+      localStorage.setItem("token", responseAuthLogin.token);
+      localStorage.setItem("account", responseAuthLogin.user.accountId);
+      navigate("/schedules");
+    }
+  }, [responseAuthLogin]);
 
   return (
     <div
@@ -66,6 +115,7 @@ export function Login() {
           }}
         >
           <form
+            onSubmit={handleSubmit}
             style={{
               width: "100%",
               display: "flex",
@@ -73,8 +123,45 @@ export function Login() {
               gap: 20,
             }}
           >
-            <Input label="Usuário" placeholder="Digite seu usuário" />
-            <Input label="Senha" placeholder="Digite sua senha" />
+            <div>
+              <Input
+                name="username"
+                value={values.username}
+                onChange={(e) => {
+                  setFieldValue("username", maskTextCellPhone(e.target.value));
+                }}
+                onBlur={handleBlur}
+                label="Usuário"
+                placeholder="Digite seu usuário"
+              />
+              <span
+                style={{
+                  color: "red",
+                  fontSize: 12,
+                }}
+              >
+                {errors.username && touched.username ? errors.username : null}
+              </span>
+            </div>
+            <div>
+              <Input
+                name="password"
+                type="password"
+                value={values.password}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                label="Senha"
+                placeholder="Digite sua senha"
+              />
+              <span
+                style={{
+                  color: "red",
+                  fontSize: 12,
+                }}
+              >
+                {errors.password && touched.password ? errors.password : null}
+              </span>
+            </div>
 
             <label
               style={{
@@ -88,7 +175,7 @@ export function Login() {
               <input type="checkbox" id="remember" name="remember" />
               Lembrar-me
             </label>
-            <Button title="Entrar" onClick={() => navigate("schedules")} />
+            <Button type="submit"> Entrar </Button>
           </form>
         </div>
       </section>

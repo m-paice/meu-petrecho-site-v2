@@ -1,14 +1,16 @@
-import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
 import { useMemo, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
+
+import { Service } from "../../pages/Services";
 
 interface Props {
-  services: {
-    id: string;
-    name: string;
-  }[];
+  services: Service[];
 }
 
 export function ServicesList({ services }: Props) {
+  const navigate = useNavigate();
+
   const [search, setSearch] = useState("");
   const [selected, setSelected] = useState("");
   const [isHovered, setIsHovered] = useState("");
@@ -63,7 +65,7 @@ export function ServicesList({ services }: Props) {
           <p style={{ textAlign: "center" }}>Nenhum cliente encontrado</p>
         )}
         {(search.length > 0 ? servicesFiltered : services).map(
-          (category, index) => (
+          (service, index) => (
             <div
               key={index}
               style={{
@@ -75,14 +77,17 @@ export function ServicesList({ services }: Props) {
                 cursor: "pointer",
                 transition: "color 0.3s, background-color 0.3s ease",
                 color:
-                  isHovered === category.id || selected === category.id
+                  isHovered === service.id || selected === service.id
                     ? "#e34954"
                     : "",
                 backgroundColor:
-                  isHovered === category.id ? "rgba(250, 137, 107, 0.1)" : "",
+                  isHovered === service.id ? "rgba(250, 137, 107, 0.1)" : "",
               }}
-              onClick={() => setSelected(category.id)}
-              onMouseEnter={() => setIsHovered(category.id)}
+              onClick={() => {
+                setSelected(service.id);
+                navigate(`/services/${service.id}`);
+              }}
+              onMouseEnter={() => setIsHovered(service.id)}
               onMouseLeave={() => setIsHovered("")}
             >
               <div
@@ -94,7 +99,7 @@ export function ServicesList({ services }: Props) {
                 }}
               />
               <div>
-                <h4>{category.name}</h4>
+                <h4>{service.name}</h4>
               </div>
             </div>
           )

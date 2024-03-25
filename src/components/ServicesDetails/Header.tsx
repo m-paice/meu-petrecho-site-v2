@@ -1,10 +1,9 @@
-import { useState } from "react";
 import { PencilIcon, TrashIcon } from "@heroicons/react/20/solid";
-
-import { DeleteModal } from "./DeleteModal";
+import { useNavigate, useParams } from "react-router-dom";
 
 export function Header() {
-  const [open, setOpen] = useState(false);
+  const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
   return (
     <div style={styles.container}>
       <h4>Detalhes</h4>
@@ -14,16 +13,19 @@ export function Header() {
           gap: 20,
         }}
       >
-        <PencilIcon width={20} color="gray" style={{ cursor: "pointer" }} />
+        <PencilIcon
+          width={20}
+          color="gray"
+          style={{ cursor: "pointer" }}
+          onClick={() => navigate(`/services/${id}/edit`)}
+        />
         <TrashIcon
           width={20}
           color="gray"
           style={{ cursor: "pointer" }}
-          onClick={() => setOpen(!open)}
+          onClick={() => navigate(`/services/${id}/delete`)}
         />
       </div>
-
-      <DeleteModal open={open} setOpen={setOpen} />
     </div>
   );
 }

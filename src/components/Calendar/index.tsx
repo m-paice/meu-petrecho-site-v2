@@ -2,18 +2,19 @@ import dayjs from "dayjs";
 import { Button } from "../Button";
 import { CSSProperties } from "react";
 
+interface Schedules {
+  [key: string]: {
+    id: string;
+    status: "finished" | "canceled" | "pending";
+  }[];
+}
+
 interface Props {
+  schedules: Schedules;
   currentDate: dayjs.Dayjs;
   selectedDate: dayjs.Dayjs;
   setSelectedDate: (date: dayjs.Dayjs) => void;
   setCurrentDate: (date: dayjs.Dayjs) => void;
-}
-
-interface Schedules {
-  [key: string]: {
-    id: number;
-    status: "confirmed" | "canceled" | "pending";
-  }[];
 }
 
 const daysOfWeek = [
@@ -26,53 +27,8 @@ const daysOfWeek = [
   "SÁBADO",
 ];
 
-const schedules: Schedules = {
-  "02-02-2024": [
-    {
-      id: 1,
-      status: "confirmed",
-    },
-
-    {
-      id: 3,
-      status: "pending",
-    },
-  ],
-  "05-02-2024": [
-    {
-      id: 1,
-      status: "confirmed",
-    },
-    {
-      id: 2,
-      status: "canceled",
-    },
-    {
-      id: 3,
-      status: "pending",
-    },
-    {
-      id: 4,
-      status: "pending",
-    },
-    {
-      id: 5,
-      status: "confirmed",
-    },
-  ],
-  "20-02-2024": [
-    {
-      id: 1,
-      status: "confirmed",
-    },
-    {
-      id: 2,
-      status: "canceled",
-    },
-  ],
-};
-
 export function Calendar({
+  schedules,
   selectedDate,
   currentDate,
   setSelectedDate,
@@ -90,17 +46,17 @@ export function Calendar({
         <div style={styles.buttons}>
           <Button
             size="small"
-            title="anterior"
             onClick={() =>
               setCurrentDate(
                 dayjs(currentDate).subtract(1, "month").startOf("month")
               )
             }
-          />
+          >
+            {" "}
+            anterior{" "}
+          </Button>
           <span
-            style={{
-              cursor: "pointer",
-            }}
+            style={{ cursor: "pointer" }}
             onClick={() => {
               setCurrentDate(dayjs(new Date()).startOf("month"));
               setSelectedDate(dayjs(new Date()));
@@ -110,13 +66,15 @@ export function Calendar({
           </span>
           <Button
             size="small"
-            title="próximo"
             onClick={() =>
               setCurrentDate(
                 dayjs(currentDate).add(1, "month").startOf("month")
               )
             }
-          />
+          >
+            {" "}
+            próximo{" "}
+          </Button>
         </div>
       </div>
       <div style={styles.dayOfWeek}>
@@ -148,7 +106,7 @@ export function Calendar({
                       .day(i * 7 + j)
                       .format("DD-MM-YYYY")
                   ] ?? []
-                ).filter((schedule) => schedule.status === "confirmed");
+                ).filter((schedule) => schedule.status === "finished");
 
                 const schedulesCanceled = (
                   schedules[

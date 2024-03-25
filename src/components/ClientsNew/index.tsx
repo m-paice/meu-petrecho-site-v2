@@ -2,11 +2,9 @@ import { Button } from "../Button";
 import { useState } from "react";
 import { Modal } from "../Modal";
 import { Input } from "../Input";
-import { Avatar } from "../Avatar";
 
 export function ClientsNew() {
   const [open, setOpen] = useState(false);
-  const [file, setFile] = useState<File | null>(null);
 
   return (
     <div>

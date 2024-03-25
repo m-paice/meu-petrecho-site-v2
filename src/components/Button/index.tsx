@@ -2,10 +2,11 @@ import { useState } from "react";
 import { colors } from "../../theme";
 
 interface Props {
-  title: string;
+  children: React.ReactNode;
   variant?: "outiline" | "filled";
   onClick?: () => void;
   size?: "small" | "medium" | "large";
+  type?: "button" | "submit" | "reset";
 }
 
 const sizes = {
@@ -15,10 +16,11 @@ const sizes = {
 };
 
 export function Button({
-  title,
+  children,
   variant = "filled",
   onClick,
   size = "medium",
+  type,
 }: Props) {
   const [isHovered, setIsHovered] = useState(false);
 
@@ -49,8 +51,9 @@ export function Button({
       }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
+      type={type}
     >
-      {title}
+      {children}
     </button>
   );
 }

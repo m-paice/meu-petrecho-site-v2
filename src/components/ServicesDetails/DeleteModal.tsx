@@ -1,17 +1,34 @@
+import { useNavigate, useParams } from "react-router-dom";
+
+import { useRequestDestroy } from "../../hooks/useRequestDestroy";
 import { Button } from "../Button";
 import { Modal } from "../Modal";
 
 interface Props {
   open: boolean;
-  setOpen: (open: boolean) => void;
+  handleClose(): void;
 }
 
-export function DeleteModal({ open, setOpen }: Props) {
+export function DeleteModal({ open, handleClose }: Props) {
+  const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
+
+  const { execute } = useRequestDestroy({
+    path: `/services/${id}`,
+    callbackSuccess() {
+      navigate("/services");
+    },
+  });
+
+  const handleSubmit = () => {
+    execute();
+  };
+
   return (
     <Modal
       title="Remover serviço"
       isOpen={open}
-      closeModal={() => setOpen(false)}
+      closeModal={handleClose}
       size="small"
     >
       <div
@@ -31,7 +48,7 @@ export function DeleteModal({ open, setOpen }: Props) {
           }}
         >
           <p style={{ textAlign: "center", fontSize: 18 }}>
-            Tem certeza que deseja remover <br /> a serviço <b>Tecnologia</b>?
+            Tem certeza que deseja remover <br /> esse serviço?
           </p>
         </div>
 
@@ -43,13 +60,12 @@ export function DeleteModal({ open, setOpen }: Props) {
             gap: 50,
           }}
         >
-          <Button
-            size="small"
-            variant="outiline"
-            title="Cancelar"
-            onClick={() => setOpen(false)}
-          />
-          <Button size="small" title="Remover" onClick={() => setOpen(false)} />
+          <Button size="small" variant="outiline" onClick={handleClose}>
+            {"cancelar".toUpperCase()}
+          </Button>
+          <Button size="small" onClick={handleSubmit}>
+            {"remover".toUpperCase()}
+          </Button>
         </div>
       </div>
     </Modal>

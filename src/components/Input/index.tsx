@@ -1,13 +1,26 @@
 import { useState } from "react";
 
 interface Props {
+  type?: "text" | "password";
   label: string;
+  value: string;
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
   placeholder: string;
   name?: string;
   size?: "small" | "medium" | "large";
 }
 
-export function Input({ label, placeholder, name, size = "medium" }: Props) {
+export function Input({
+  type = "text",
+  label,
+  placeholder,
+  name,
+  size = "medium",
+  value,
+  onChange,
+  onBlur,
+}: Props) {
   const [isHovered, setIsHovered] = useState("");
   const [isActived, setIsActived] = useState(false);
 
@@ -33,12 +46,17 @@ export function Input({ label, placeholder, name, size = "medium" }: Props) {
           height: sizes[size],
         }}
         placeholder={placeholder}
-        type="text"
+        value={value}
+        onChange={onChange}
+        type={type}
         id={name}
-        onMouseEnter={() => setIsHovered(name)}
+        onMouseEnter={() => name && setIsHovered(name)}
         onMouseLeave={() => setIsHovered("")}
         onFocus={() => setIsActived(true)}
-        onBlur={() => setIsActived(false)}
+        onBlur={(event) => {
+          setIsActived(false);
+          onBlur && onBlur(event);
+        }}
       />
     </div>
   );
