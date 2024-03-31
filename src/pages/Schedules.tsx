@@ -77,8 +77,10 @@ export function Schedules() {
     <div style={styles.container}>
       <Loading isLoading={loadingSchedules} />
       <section style={styles.leftSection}>
-        <SelectedDay selectedDate={selectedDate} />
-        <Items schedules={schedulesSelectedDate || []} />
+        <div>
+          <SelectedDay selectedDate={selectedDate} />
+          <Items schedules={schedulesSelectedDate || []} />
+        </div>
         <Button size="large"> {"novo agendamento".toUpperCase()} </Button>
       </section>
       <section style={styles.rightSection}>

@@ -197,11 +197,9 @@ export function Header() {
                   </button>
                 </Menu.Item>
                 <Menu.Item>
-                  <Button
-                    size="small"
-                    title="Sair"
-                    onClick={() => navigate("/")}
-                  />
+                  <Button size="small" onClick={() => navigate("/")}>
+                    Sair
+                  </Button>
                 </Menu.Item>
               </div>
             </Menu.Items>

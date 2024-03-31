@@ -7,6 +7,7 @@ interface Props {
   onClick?: () => void;
   size?: "small" | "medium" | "large";
   type?: "button" | "submit" | "reset";
+  disabled?: boolean;
 }
 
 const sizes = {
@@ -21,6 +22,7 @@ export function Button({
   onClick,
   size = "medium",
   type,
+  disabled,
 }: Props) {
   const [isHovered, setIsHovered] = useState(false);
 
@@ -48,7 +50,9 @@ export function Button({
         fontSize: sizes[size] || sizes.medium,
         fontWeight: "bold",
         outline: "none",
+        filter: disabled ? "grayscale(1)" : "none",
       }}
+      disabled={disabled}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       type={type}

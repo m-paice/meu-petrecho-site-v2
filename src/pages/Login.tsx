@@ -21,10 +21,13 @@ const validationSchema = yup.object().shape({
 export function Login() {
   const navigate = useNavigate();
 
-  const { execute: executeAuthLogin, response: responseAuthLogin } =
-    useRequestCreate<{ token: string; user: { accountId: string } }>({
-      path: "/auth",
-    });
+  const {
+    execute: executeAuthLogin,
+    response: responseAuthLogin,
+    loading,
+  } = useRequestCreate<{ token: string; user: { accountId: string } }>({
+    path: "/auth",
+  });
 
   const {
     handleSubmit,
@@ -175,7 +178,10 @@ export function Login() {
               <input type="checkbox" id="remember" name="remember" />
               Lembrar-me
             </label>
-            <Button type="submit"> Entrar </Button>
+            <Button type="submit" disabled={loading}>
+              {" "}
+              Entrar{" "}
+            </Button>
           </form>
         </div>
       </section>
