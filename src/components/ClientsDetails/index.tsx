@@ -1,9 +1,43 @@
+import { useParams } from "react-router-dom";
+import { useRequestFindOne } from "../../hooks/useRequestFindOne";
 import { Avatar } from "../Avatar";
 import { Header } from "./Header";
+import { useEffect } from "react";
+import { Client } from "../../pages/Clients";
+import { Loading } from "../Loading";
 
 export function ClientsDetails() {
+  const { id } = useParams<{ id: string }>();
+
+  const {
+    execute: executeFindOne,
+    response: response,
+    loading: loadingFindOne,
+  } = useRequestFindOne<Client>({
+    path: `/users/${id}`,
+  });
+
+  useEffect(() => {
+    if (id) executeFindOne();
+  }, [id]);
+
+  if (!id || !response)
+    return (
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "calc(100vh - 255px)",
+        }}
+      >
+        <p>Selecione um cliente para ter mais informações</p>
+      </div>
+    );
+
   return (
     <div>
+      <Loading isLoading={loadingFindOne} />
       <Header />
       <section
         style={{
@@ -18,8 +52,13 @@ export function ClientsDetails() {
         >
           <Avatar />
           <div>
-            <h4>Notebook</h4>
-            <p>(11) 99999-9999</p>
+            <h4>{response.name}</h4>
+            <p>
+              {response.cellPhone.replace(
+                /(\d{2})(\d{5})(\d{4})/,
+                "($1) $2-$3"
+              )}
+            </p>
           </div>
         </div>
 
@@ -37,7 +76,7 @@ export function ClientsDetails() {
           >
             <div>
               <p>Mês de aniversário:</p>
-              <p>Janeiro</p>
+              <p>{response.birthDate}</p>
             </div>
           </div>
         </div>

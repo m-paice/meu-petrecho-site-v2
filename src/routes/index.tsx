@@ -42,6 +42,22 @@ const router = createBrowserRouter([
         path: "/clients",
         element: <Clients />,
       },
+      {
+        path: "/clients/new",
+        element: <Clients />,
+      },
+      {
+        path: "/clients/:id",
+        element: <Clients />,
+      },
+      {
+        path: "/clients/:id/edit",
+        element: <Clients />,
+      },
+      {
+        path: "/clients/:id/delete",
+        element: <Clients />,
+      },
     ],
   },
 ]);

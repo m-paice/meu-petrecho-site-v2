@@ -1,15 +1,15 @@
 import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
 import { useMemo, useState } from "react";
+import { Client } from "../../pages/Clients";
+import { useNavigate } from "react-router-dom";
 
 interface Props {
-  clients: {
-    id: string;
-    name: string;
-    cellPhone: string;
-  }[];
+  clients: Client[];
 }
 
 export function ClientsList({ clients }: Props) {
+  const navigate = useNavigate();
+
   const [search, setSearch] = useState("");
   const [selected, setSelected] = useState("");
   const [isHovered, setIsHovered] = useState("");
@@ -82,7 +82,10 @@ export function ClientsList({ clients }: Props) {
                 backgroundColor:
                   isHovered === client.id ? "rgba(250, 137, 107, 0.1)" : "",
               }}
-              onClick={() => setSelected(client.id)}
+              onClick={() => {
+                setSelected(client.id);
+                navigate(`/clients/${client.id}`);
+              }}
               onMouseEnter={() => setIsHovered(client.id)}
               onMouseLeave={() => setIsHovered("")}
             >
@@ -96,7 +99,12 @@ export function ClientsList({ clients }: Props) {
               />
               <div>
                 <h4>{client.name}</h4>
-                <p>{client.cellPhone}</p>
+                <p>
+                  {client.cellPhone.replace(
+                    /(\d{2})(\d{5})(\d{4})/,
+                    "($1) $2-$3"
+                  )}
+                </p>
               </div>
             </div>
           )

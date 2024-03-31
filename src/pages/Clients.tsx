@@ -1,39 +1,35 @@
 import { ClientsList } from "../components/ClientsList";
 import { ClientsDetails } from "../components/ClientsDetails";
-import { ClientsNew } from "../components/ClientsNew";
+import { ClientsForm } from "../components/ClientsForm";
 import { ClientsFilter } from "../components/ClientsFilter";
+import { useRequestFindMany } from "../hooks/useRequestFindMany";
+import { useEffect } from "react";
+import { Loading } from "../components/Loading";
+import { ResponseAPI } from "../types/ResponseAPI";
 
-const clients = [
-  {
-    id: "1",
-    name: "Rafael Oliveira",
-    cellPhone: "(11) 99999-9999",
-  },
-  {
-    id: "2",
-    name: "João Silva",
-    cellPhone: "(11) 99999-9999",
-  },
-  {
-    id: "3",
-    name: "Maria Santos",
-    cellPhone: "(11) 99999-9999",
-  },
-  {
-    id: "4",
-    name: "José Pereira",
-    cellPhone: "(11) 99999-9999",
-  },
-  {
-    id: "5",
-    name: "Fernanda Oliveira",
-    cellPhone: "(11) 99999-9999",
-  },
-];
+export interface Client {
+  id: string;
+  name: string;
+  cellPhone: string;
+  birthDate: string;
+}
 
 export function Clients() {
+  const {
+    execute: executeFindMany,
+    response: clients,
+    loading: loadingClients,
+  } = useRequestFindMany<ResponseAPI<Client[]>>({
+    path: "/users",
+  });
+
+  useEffect(() => {
+    if (window.location.pathname === "/clients") executeFindMany();
+  }, [window.location.pathname]);
+
   return (
     <div>
+      <Loading isLoading={loadingClients} />
       <div style={styles.container}>
         <h4
           style={{
@@ -46,10 +42,10 @@ export function Clients() {
       </div>
       <div style={styles.grid}>
         <div style={styles.wrapperActions}>
-          <ClientsNew />
+          <ClientsForm />
           <ClientsFilter />
         </div>
-        <ClientsList clients={clients} />
+        <ClientsList clients={clients?.data || []} />
         <ClientsDetails />
       </div>
     </div>

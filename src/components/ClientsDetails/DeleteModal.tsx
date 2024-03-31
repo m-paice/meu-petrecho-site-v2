@@ -1,17 +1,26 @@
+import { useNavigate, useParams } from "react-router-dom";
 import { Button } from "../Button";
 import { Modal } from "../Modal";
+import { useRequestDestroy } from "../../hooks/useRequestDestroy";
 
-interface Props {
-  open: boolean;
-  setOpen: (open: boolean) => void;
-}
+export function DeleteModal() {
+  const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
 
-export function DeleteModal({ open, setOpen }: Props) {
+  const { execute } = useRequestDestroy({
+    path: `/users/${id}`,
+    callbackSuccess: () => {
+      navigate("/clients");
+    },
+  });
+
   return (
     <Modal
       title="Remover cliente"
-      isOpen={open}
-      closeModal={() => setOpen(false)}
+      isOpen={window.location.pathname.includes(`/clients/${id}/delete`)}
+      closeModal={() => {
+        navigate(`/clients/${id}`);
+      }}
       size="small"
     >
       <div
@@ -46,10 +55,13 @@ export function DeleteModal({ open, setOpen }: Props) {
           <Button
             size="small"
             variant="outiline"
-            title="Cancelar"
-            onClick={() => setOpen(false)}
-          />
-          <Button size="small" title="Remover" onClick={() => setOpen(false)} />
+            onClick={() => navigate(`/clients/${id}`)}
+          >
+            Cancelar
+          </Button>
+          <Button size="small" onClick={execute}>
+            Remover
+          </Button>
         </div>
       </div>
     </Modal>
