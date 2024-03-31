@@ -100,6 +100,12 @@ export function ServicesList({ services }: Props) {
               />
               <div>
                 <h4>{service.name}</h4>
+                <span>
+                  {service.price.toLocaleString("pt-BR", {
+                    style: "currency",
+                    currency: "BRL",
+                  })}
+                </span>
               </div>
             </div>
           )

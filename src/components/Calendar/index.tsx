@@ -34,7 +34,16 @@ export function Calendar({
   setSelectedDate,
   setCurrentDate,
 }: Props) {
-  const lines = dayjs(currentDate).startOf("month").day() === 6 ? 6 : 5;
+  console.log(
+    'dayjs(currentDate).startOf("month").day()',
+    dayjs(currentDate).startOf("month").day()
+  );
+
+  const lines =
+    dayjs(currentDate).startOf("month").day() === 5 ||
+    dayjs(currentDate).startOf("month").day() === 6
+      ? 6
+      : 5;
 
   return (
     <div>

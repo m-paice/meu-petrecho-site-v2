@@ -2,7 +2,7 @@ import { useEffect } from "react";
 
 import { ServicesList } from "../components/ServicesList";
 import { ServicesDetails } from "../components/ServicesDetails";
-import { ServicesNew } from "../components/ServicesNew";
+import { ServicesForm } from "../components/ServicesForm";
 import { ServicesFilter } from "../components/ServicesFilter";
 import { Loading } from "../components/Loading";
 import { useRequestFindMany } from "../hooks/useRequestFindMany";
@@ -43,7 +43,7 @@ export function Services() {
       </div>
       <div style={styles.grid}>
         <div style={styles.wrapperActions}>
-          <ServicesNew />
+          <ServicesForm />
           <ServicesFilter />
         </div>
         <ServicesList services={serivices?.data || []} />

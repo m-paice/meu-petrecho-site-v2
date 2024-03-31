@@ -11,6 +11,7 @@ import { useRequestCreate } from "../../hooks/useRequestCreate";
 import { Loading } from "../Loading";
 import { useRequestFindOne } from "../../hooks/useRequestFindOne";
 import { Service } from "../../pages/Services";
+import { useRequestUpdate } from "../../hooks/useRequestUpdate";
 
 const initialValues = {
   name: "",
@@ -23,9 +24,17 @@ const validationSchema = yup.object({
   price: yup.string().required("Preço é obrigatório"),
 });
 
-export function ServicesNew() {
+export function ServicesForm() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
+
+  const {
+    execute: executeUpdateService,
+    response: responseUpdateService,
+    loading: loadingUpdateService,
+  } = useRequestUpdate({
+    path: `/services/${id}`,
+  });
 
   const {
     execute: executeCreateService,
@@ -56,13 +65,18 @@ export function ServicesNew() {
     initialValues,
     validationSchema,
     onSubmit(values) {
+      if (id) {
+        executeUpdateService(values);
+        return;
+      }
       executeCreateService(values);
     },
   });
 
   useEffect(() => {
-    if (id) executeFindOne();
-  }, [id]);
+    if (id && window.location.pathname === `/services/${id}/edit`)
+      executeFindOne();
+  }, [id, window.location.pathname]);
 
   useEffect(() => {
     if (responseFindOne) {
@@ -73,11 +87,11 @@ export function ServicesNew() {
   }, [responseFindOne]);
 
   useEffect(() => {
-    if (responseCreatedService) {
+    if (responseCreatedService || responseUpdateService) {
       resetForm();
       navigate("/services");
     }
-  }, [responseCreatedService]);
+  }, [responseCreatedService, responseUpdateService]);
 
   return (
     <div>
@@ -91,10 +105,20 @@ export function ServicesNew() {
           window.location.pathname === "/services/new" ||
           window.location.pathname === `/services/${id}/edit`
         }
-        closeModal={() => navigate("/services")}
+        closeModal={() => {
+          if (id) {
+            navigate(`/services/${id}`);
+          } else {
+            navigate("/services");
+          }
+
+          resetForm();
+        }}
         size="medium"
       >
-        <Loading isLoading={loading || loadingFindOne} />
+        <Loading
+          isLoading={loading || loadingFindOne || loadingUpdateService}
+        />
         <div
           style={{
             display: "flex",
