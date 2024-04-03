@@ -19,6 +19,10 @@ const router = createBrowserRouter([
         element: <Schedules />,
       },
       {
+        path: "/schedules/new",
+        element: <Schedules />,
+      },
+      {
         path: "/services",
         element: <Services />,
       },

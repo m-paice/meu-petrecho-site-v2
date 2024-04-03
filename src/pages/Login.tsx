@@ -25,7 +25,10 @@ export function Login() {
     execute: executeAuthLogin,
     response: responseAuthLogin,
     loading,
-  } = useRequestCreate<{ token: string; user: { accountId: string } }>({
+  } = useRequestCreate<{
+    token: string;
+    user: { accountId: string; id: string };
+  }>({
     path: "/auth",
   });
 
@@ -53,6 +56,7 @@ export function Login() {
     if (responseAuthLogin) {
       localStorage.setItem("token", responseAuthLogin.token);
       localStorage.setItem("account", responseAuthLogin.user.accountId);
+      localStorage.setItem("user", responseAuthLogin.user.id);
       navigate("/schedules");
     }
   }, [responseAuthLogin]);

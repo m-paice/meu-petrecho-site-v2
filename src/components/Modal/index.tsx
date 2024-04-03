@@ -5,7 +5,7 @@ interface Props {
   title: string;
   children: React.ReactNode;
   isOpen: boolean;
-  size?: "small" | "medium" | "large";
+  size?: "small" | "medium" | "large" | "extraLarge";
   closeModal: () => void;
 }
 
@@ -13,6 +13,7 @@ const sizes = {
   small: "450px",
   medium: "700px",
   large: "900px",
+  extraLarge: "1200px",
 };
 
 export function Modal({

@@ -9,6 +9,8 @@ import { Button } from "../components/Button";
 import { SelectedDay } from "../components/SelectedDay";
 import { Loading } from "../components/Loading";
 import { useRequestFindMany } from "../hooks/useRequestFindMany";
+import { SchedulesNew } from "../components/SchedulesNew";
+import { useNavigate } from "react-router-dom";
 
 interface Schedules {
   id: string;
@@ -25,6 +27,8 @@ interface Schedules {
 }
 
 export function Schedules() {
+  const navigate = useNavigate();
+
   const [currentDate, setCurrentDate] = useState(
     dayjs(new Date()).startOf("month")
   );
@@ -49,8 +53,8 @@ export function Schedules() {
   });
 
   useEffect(() => {
-    execFindManySchedules();
-  }, [currentDate]);
+    if (window.location.pathname === "/schedules") execFindManySchedules();
+  }, [currentDate, window.location.pathname]);
 
   const schedules = (responseSchedules?.data || []).reduce<{
     [key: string]: Schedules[];
@@ -81,7 +85,9 @@ export function Schedules() {
           <SelectedDay selectedDate={selectedDate} />
           <Items schedules={schedulesSelectedDate || []} />
         </div>
-        <Button size="large"> {"novo agendamento".toUpperCase()} </Button>
+        <Button size="large" onClick={() => navigate("/schedules/new")}>
+          {"novo agendamento".toUpperCase()}
+        </Button>
       </section>
       <section style={styles.rightSection}>
         <Calendar
@@ -92,6 +98,7 @@ export function Schedules() {
           setCurrentDate={setCurrentDate}
         />
       </section>
+      <SchedulesNew />
     </div>
   );
 }

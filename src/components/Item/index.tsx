@@ -1,5 +1,4 @@
-import { Menu, Transition } from "@headlessui/react";
-import { Fragment, useState } from "react";
+import { useState } from "react";
 
 interface Props {
   text: string;
@@ -9,8 +8,6 @@ interface Props {
   user: string;
 }
 
-const actions = ["Finalizar", "Cancelar", "Restaurar", "Editar", "Deletar"];
-
 export function Item({ text, color, scheduleAt, services, user }: Props) {
   const [isHovered, setIsHovered] = useState("");
 
@@ -18,78 +15,34 @@ export function Item({ text, color, scheduleAt, services, user }: Props) {
     <div
       style={{
         width: "100%",
-        position: "relative",
+
+        color: isHovered ? "#e34954" : "#000",
+        transition: "0.3s",
       }}
+      onMouseEnter={() => setIsHovered("true")}
+      onMouseLeave={() => setIsHovered("")}
     >
-      <Menu as="div">
-        <div>
-          <Menu.Button
+      <div className="item" style={styles.item}>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            width: "100%",
+          }}
+        >
+          <b style={{ fontSize: 18 }}>{scheduleAt}</b>
+          <span
             style={{
-              backgroundColor: "transparent",
-              border: "none",
-              cursor: "pointer",
-              width: "100%",
+              backgroundColor: color,
+              ...styles.status,
             }}
           >
-            <div className="item" style={styles.item}>
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  width: "100%",
-                }}
-              >
-                <b style={{ fontSize: 18 }}>{scheduleAt}</b>
-                <span
-                  style={{
-                    backgroundColor: color,
-                    ...styles.status,
-                  }}
-                >
-                  {text}
-                </span>
-              </div>
-              <p style={{ fontSize: 16 }}>{user}</p>
-              <p style={{ fontSize: 16 }}>{services}</p>
-            </div>
-          </Menu.Button>
+            {text}
+          </span>
         </div>
-        <Transition
-          as={Fragment}
-          enter="transition ease-out duration-100"
-          enterFrom="transform opacity-0 scale-95"
-          enterTo="transform opacity-100 scale-100"
-          leave="transition ease-in duration-75"
-          leaveFrom="transform opacity-100 scale-100"
-          leaveTo="transform opacity-0 scale-95"
-        >
-          <Menu.Items>
-            <div style={styles.containerOptions}>
-              {actions.map((action) => (
-                <Menu.Item key={action}>
-                  <button
-                    onClick={() => {
-                      setIsHovered("");
-                    }}
-                    onMouseEnter={() => setIsHovered(action)}
-                    onMouseLeave={() => setIsHovered("")}
-                    style={{
-                      ...styles.button,
-                      color: isHovered === action ? "#e34954" : "#000",
-                      backgroundColor:
-                        isHovered === action
-                          ? "rgba(250, 137, 107, 0.3)"
-                          : "transparent",
-                    }}
-                  >
-                    {action}
-                  </button>
-                </Menu.Item>
-              ))}
-            </div>
-          </Menu.Items>
-        </Transition>
-      </Menu>
+        <p style={{ fontSize: 16 }}>{user}</p>
+        <p style={{ fontSize: 16 }}>{services}</p>
+      </div>
     </div>
   );
 }
