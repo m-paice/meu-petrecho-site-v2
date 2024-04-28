@@ -1,27 +1,25 @@
-import { useMemo, useState } from "react";
+import { useState } from "react";
+import InfiniteScroll from "react-infinite-scroll-component";
 import { useNavigate } from "react-router-dom";
 import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
 
 import { Service } from "../../pages/Services";
 
 interface Props {
-  services: Service[];
+  services: {
+    data: Service[];
+    page: number;
+    lastPage: number;
+  };
+  executeServices({ page }: { page: number }): void;
 }
 
-export function ServicesList({ services }: Props) {
+export function ServicesList({ services, executeServices }: Props) {
   const navigate = useNavigate();
 
   const [search, setSearch] = useState("");
   const [selected, setSelected] = useState("");
   const [isHovered, setIsHovered] = useState("");
-
-  const servicesFiltered = useMemo(() => {
-    return search.length > 0
-      ? services.filter((client) =>
-          client.name.toLowerCase().includes(search.toLowerCase())
-        )
-      : [];
-  }, [search, services]);
 
   return (
     <div
@@ -54,63 +52,69 @@ export function ServicesList({ services }: Props) {
           }}
         />
       </div>
-      <div
+      <InfiniteScroll
+        dataLength={services.data.length}
+        next={() => {
+          if (services.page < (services?.lastPage || 0)) {
+            executeServices({
+              page: services.page + 1,
+            });
+          }
+        }}
+        hasMore={services.page < (services?.lastPage || 0)}
+        loader={<h4>Carregando...</h4>}
+        height={335}
         style={{
           overflowY: "auto",
           height: "calc(100vh - 255px)",
           marginTop: 20,
         }}
       >
-        {search.length > 0 && servicesFiltered.length === 0 && (
-          <p style={{ textAlign: "center" }}>Nenhum cliente encontrado</p>
-        )}
-        {(search.length > 0 ? servicesFiltered : services).map(
-          (service, index) => (
+        {services.data.map((service) => (
+          <div
+            key={service.id}
+            style={{
+              margin: "10px 0",
+              display: "flex",
+              gap: 10,
+              padding: "10px 5px",
+              borderRadius: 5,
+              cursor: "pointer",
+              transition: "color 0.3s, background-color 0.3s ease",
+              color:
+                isHovered === service.id || selected === service.id
+                  ? "#e34954"
+                  : "",
+              backgroundColor:
+                isHovered === service.id ? "rgba(250, 137, 107, 0.1)" : "",
+            }}
+            onClick={() => {
+              setSelected(service.id);
+              navigate(`/services/${service.id}`);
+            }}
+            onMouseEnter={() => setIsHovered(service.id)}
+            onMouseLeave={() => setIsHovered("")}
+          >
             <div
-              key={index}
               style={{
-                margin: "10px 0",
-                display: "flex",
-                gap: 10,
-                padding: "10px 5px",
-                borderRadius: 5,
-                cursor: "pointer",
-                transition: "color 0.3s, background-color 0.3s ease",
-                color:
-                  isHovered === service.id || selected === service.id
-                    ? "#e34954"
-                    : "",
-                backgroundColor:
-                  isHovered === service.id ? "rgba(250, 137, 107, 0.1)" : "",
+                width: 50,
+                height: 50,
+                backgroundColor: "#e6e6e6",
+                borderRadius: 50,
               }}
-              onClick={() => {
-                setSelected(service.id);
-                navigate(`/services/${service.id}`);
-              }}
-              onMouseEnter={() => setIsHovered(service.id)}
-              onMouseLeave={() => setIsHovered("")}
-            >
-              <div
-                style={{
-                  width: 50,
-                  height: 50,
-                  backgroundColor: "#e6e6e6",
-                  borderRadius: 50,
-                }}
-              />
-              <div>
-                <h4>{service.name}</h4>
-                <span>
-                  {service.price.toLocaleString("pt-BR", {
-                    style: "currency",
-                    currency: "BRL",
-                  })}
-                </span>
-              </div>
+            />
+            <div>
+              <h4>{service.name}</h4>
+              <span>
+                {service.price.toLocaleString("pt-BR", {
+                  style: "currency",
+                  currency: "BRL",
+                })}
+              </span>
             </div>
-          )
-        )}
-      </div>
+          </div>
+        ))}
+      </InfiniteScroll>
     </div>
   );
 }

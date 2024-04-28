@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as yup from "yup";
+import { toast } from "react-toastify";
 
 import { Button } from "../components/Button";
 import { Input } from "../components/Input";
@@ -25,6 +26,7 @@ export function Login() {
     execute: executeAuthLogin,
     response: responseAuthLogin,
     loading,
+    error,
   } = useRequestCreate<{
     token: string;
     user: { accountId: string; id: string };
@@ -60,6 +62,12 @@ export function Login() {
       navigate("/schedules");
     }
   }, [responseAuthLogin]);
+
+  useEffect(() => {
+    if (error) {
+      toast.error("Usuário ou senha inválidos");
+    }
+  }, [error]);
 
   return (
     <div

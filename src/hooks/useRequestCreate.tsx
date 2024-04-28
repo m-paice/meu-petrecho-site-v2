@@ -13,6 +13,7 @@ export function useRequestCreate<T>({ path }: Props) {
 
   const execute = (payload: unknown, params = {}) => {
     setLoading(true);
+    setError(false);
 
     api
       .post(path, payload, {

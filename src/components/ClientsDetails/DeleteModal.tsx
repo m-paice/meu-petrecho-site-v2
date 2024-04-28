@@ -40,7 +40,7 @@ export function DeleteModal() {
           }}
         >
           <p style={{ textAlign: "center", fontSize: 18 }}>
-            Tem certeza que deseja remover <br /> o cliente <b>Notebook</b>?
+            Tem certeza que deseja remover <br /> esse cliente?
           </p>
         </div>
 

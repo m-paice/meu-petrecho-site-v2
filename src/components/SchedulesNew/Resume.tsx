@@ -40,11 +40,11 @@ export function Resume({ values, setFieldValue, handleChange }: Props) {
               alignItems: "center",
             }}
           >
-            Props
             <input
               style={{
                 border: "none",
                 outline: "none",
+                fontSize: 18,
               }}
               value={values.date}
               onChange={handleChange}
@@ -56,6 +56,7 @@ export function Resume({ values, setFieldValue, handleChange }: Props) {
               style={{
                 border: "none",
                 outline: "none",
+                fontSize: 18,
               }}
               value={values.time}
               onChange={handleChange}
@@ -65,7 +66,15 @@ export function Resume({ values, setFieldValue, handleChange }: Props) {
             />
           </div>
         </div>
-        <div>
+
+        <div
+          style={{
+            marginBlock: 10,
+            border: "1px solid #e6e6e6",
+            borderRadius: 10,
+            padding: 10,
+          }}
+        >
           <h4>cliente</h4>
           <p>{values.user?.name}</p>
           <span
@@ -79,7 +88,18 @@ export function Resume({ values, setFieldValue, handleChange }: Props) {
               "($1) $2-$3"
             )}
           </span>
+        </div>
 
+        <div
+          style={{
+            marginBlock: 10,
+            border: "1px solid #e6e6e6",
+            borderRadius: 10,
+            padding: 10,
+            height: 150,
+            overflowY: "auto",
+          }}
+        >
           <h4>serviços</h4>
           <div>
             {values.services.map((service) => (

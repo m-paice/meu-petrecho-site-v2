@@ -1,11 +1,11 @@
+import { useEffect, useState } from "react";
+import { useRequestFindMany } from "../hooks/useRequestFindMany";
+import { ResponseAPI } from "../types/ResponseAPI";
 import { ClientsList } from "../components/ClientsList";
 import { ClientsDetails } from "../components/ClientsDetails";
 import { ClientsForm } from "../components/ClientsForm";
 import { ClientsFilter } from "../components/ClientsFilter";
-import { useRequestFindMany } from "../hooks/useRequestFindMany";
-import { useEffect } from "react";
 import { Loading } from "../components/Loading";
-import { ResponseAPI } from "../types/ResponseAPI";
 
 export interface Client {
   id: string;
@@ -15,6 +15,8 @@ export interface Client {
 }
 
 export function Clients() {
+  const [data, setData] = useState<Client[]>([]);
+
   const {
     execute: executeFindMany,
     response: clients,
@@ -22,6 +24,12 @@ export function Clients() {
   } = useRequestFindMany<ResponseAPI<Client[]>>({
     path: "/users",
   });
+
+  useEffect(() => {
+    if (clients?.data) {
+      setData((prevState) => [...prevState, ...clients.data]);
+    }
+  }, [clients?.data]);
 
   useEffect(() => {
     if (window.location.pathname === "/clients") executeFindMany();
@@ -45,7 +53,14 @@ export function Clients() {
           <ClientsForm />
           <ClientsFilter />
         </div>
-        <ClientsList clients={clients?.data || []} />
+        <ClientsList
+          clients={{
+            data,
+            page: clients?.currentPage || 1,
+            lastPage: clients?.lastPage || 1,
+          }}
+          executeClients={executeFindMany}
+        />
         <ClientsDetails />
       </div>
     </div>

@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import { ServicesList } from "../components/ServicesList";
 import { ServicesDetails } from "../components/ServicesDetails";
@@ -16,13 +16,21 @@ export interface Service {
 }
 
 export function Services() {
+  const [data, setData] = useState<Service[]>([]);
+
   const {
     execute: executeFindManyServices,
-    response: serivices,
+    response: services,
     loading,
   } = useRequestFindMany<ResponseAPI<Service[]>>({
     path: "/services",
   });
+
+  useEffect(() => {
+    if (services?.data) {
+      setData((prevState) => [...prevState, ...services.data]);
+    }
+  }, [services?.data]);
 
   useEffect(() => {
     if (window.location.pathname === "/services") executeFindManyServices();
@@ -46,7 +54,14 @@ export function Services() {
           <ServicesForm />
           <ServicesFilter />
         </div>
-        <ServicesList services={serivices?.data || []} />
+        <ServicesList
+          services={{
+            data,
+            page: services?.currentPage || 1,
+            lastPage: services?.lastPage || 1,
+          }}
+          executeServices={executeFindManyServices}
+        />
         <ServicesDetails />
       </div>
     </div>

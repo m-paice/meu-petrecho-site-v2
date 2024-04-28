@@ -92,6 +92,7 @@ const styles: { [key: string]: CSSProperties } = {
     zIndex: 1,
   },
   modal: {
+    maxHeight: 500,
     backgroundColor: "#fff",
     padding: "20px",
     borderRadius: "10px",
