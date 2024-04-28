@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 
 import { CalendarIcon, UsersIcon, WrenchIcon } from "@heroicons/react/20/solid";
+import pkage from "../../../package.json";
 
 import { useLayoutContext } from "../../context/layout";
 import { useState } from "react";
@@ -129,7 +130,7 @@ export function Sidebar() {
           fontSize: 14,
         }}
       >
-        versão 1.0.0
+        versão {pkage.version}
       </p>
     </div>
   );
