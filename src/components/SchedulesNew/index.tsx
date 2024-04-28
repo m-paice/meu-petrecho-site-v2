@@ -78,7 +78,7 @@ export function SchedulesNew() {
 
         const payload = {
           userId: values.user?.id,
-          employeeId: localStorage.getItem("user"),
+          employeeId: localStorage.getItem("userId"),
           services: values.services.map((service) => ({
             id: service.id,
             isPackage: false,

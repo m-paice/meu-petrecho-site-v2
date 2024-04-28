@@ -59,7 +59,8 @@ export function Login() {
     if (responseAuthLogin) {
       localStorage.setItem("token", responseAuthLogin.token);
       localStorage.setItem("account", responseAuthLogin.user.accountId);
-      localStorage.setItem("user", responseAuthLogin.user.id);
+      localStorage.setItem("user", JSON.stringify(responseAuthLogin.user));
+      localStorage.setItem("userId", responseAuthLogin.user.id);
       navigate("/schedules");
     }
   }, [responseAuthLogin]);

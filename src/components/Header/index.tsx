@@ -56,6 +56,8 @@ export function Header() {
   const navigate = useNavigate();
   const { setHideSidebar, hideSidebar } = useLayoutContext();
 
+  const user = JSON.parse(localStorage.getItem("user") || "{}");
+
   return (
     <header
       style={{
@@ -181,7 +183,7 @@ export function Header() {
                       textAlign: "center",
                     }}
                   >
-                    <strong>Roane Rocha</strong>
+                    <strong>{user.name}</strong>
                   </p>
                 </div>
                 <Menu.Item>
