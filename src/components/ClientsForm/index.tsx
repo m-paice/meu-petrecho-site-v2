@@ -1,12 +1,14 @@
+import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { Button } from "../Button";
-import { Modal } from "../Modal";
-import { Input } from "../Input";
 import { useFormik } from "formik";
+import * as yup from "yup";
+
 import { useRequestCreate } from "../../hooks/useRequestCreate";
 import { useRequestUpdate } from "../../hooks/useRequestUpdate";
 import { useRequestFindOne } from "../../hooks/useRequestFindOne";
-import { useEffect } from "react";
+import { Button } from "../Button";
+import { Modal } from "../Modal";
+import { Input } from "../Input";
 import { Loading } from "../Loading";
 
 const initialValues = {
@@ -14,6 +16,10 @@ const initialValues = {
   cellPhone: "",
   birthDate: "",
 };
+
+const validationSchema = yup.object({
+  name: yup.string().required("Nome é obrigatório"),
+});
 
 export function ClientsForm() {
   const { id } = useParams<{ id: string }>();
@@ -54,8 +60,11 @@ export function ClientsForm() {
     resetForm,
     setFieldValue,
     values,
+    errors,
+    touched,
   } = useFormik({
     initialValues,
+    validationSchema,
     onSubmit: (values) => {
       if (id) {
         executeUpdate(values);
@@ -142,6 +151,14 @@ export function ClientsForm() {
                 placeholder="Digite o nome do cliente"
                 name="name"
               />
+              <span
+                style={{
+                  color: "red",
+                  fontSize: 12,
+                }}
+              >
+                {errors.name && touched.name && errors.name}
+              </span>
               <Input
                 value={values.cellPhone}
                 onChange={handleChange}

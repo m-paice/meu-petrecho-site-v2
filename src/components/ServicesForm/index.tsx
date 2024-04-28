@@ -6,7 +6,6 @@ import * as yup from "yup";
 import { Button } from "../Button";
 import { Modal } from "../Modal";
 import { Input } from "../Input";
-import { Avatar } from "../Avatar";
 import { useRequestCreate } from "../../hooks/useRequestCreate";
 import { Loading } from "../Loading";
 import { useRequestFindOne } from "../../hooks/useRequestFindOne";
@@ -148,9 +147,7 @@ export function ServicesForm() {
                   justifyContent: "center",
                   alignItems: "center",
                 }}
-              >
-                <Avatar size="large" />
-              </div>
+              ></div>
               <div>
                 <Input
                   name="name"
