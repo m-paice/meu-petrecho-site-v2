@@ -1,10 +1,16 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, Navigate } from "react-router-dom";
 import { Sidebar } from "../components/Sidebar";
 import { Header } from "../components/Header";
 import { useLayoutContext } from "../context/layout";
 
 export function DashboardLayout() {
   const { hideSidebar } = useLayoutContext();
+
+  const token = localStorage.getItem("token");
+
+  if (!token) {
+    return <Navigate to="/" />;
+  }
 
   return (
     <div
