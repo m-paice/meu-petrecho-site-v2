@@ -97,6 +97,7 @@ export function ServicesList({ services, executeServices }: Props) {
           >
             <div
               style={{
+                minWidth: 50,
                 width: 50,
                 height: 50,
                 backgroundColor: "#e6e6e6",
