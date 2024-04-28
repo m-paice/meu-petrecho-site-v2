@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
 
 import { Service } from "../../pages/Services";
+import { useBebounce } from "../../hooks/useDebounce";
 
 interface Props {
   services: {
@@ -11,15 +12,36 @@ interface Props {
     page: number;
     lastPage: number;
   };
+  noSearchValues?: boolean;
   executeServices({ page }: { page: number }): void;
+  executeServicesFiltered({
+    page,
+    where,
+  }: {
+    page: number;
+    where: Record<string, unknown>;
+  }): void;
 }
 
-export function ServicesList({ services, executeServices }: Props) {
+export function ServicesList({
+  services,
+  noSearchValues,
+  executeServices,
+  executeServicesFiltered,
+}: Props) {
   const navigate = useNavigate();
 
-  const [search, setSearch] = useState("");
   const [selected, setSelected] = useState("");
   const [isHovered, setIsHovered] = useState("");
+
+  const debounce = useBebounce((value) => {
+    executeServicesFiltered({
+      page: 1,
+      where: {
+        name: { $iLike: `%${value}%` },
+      },
+    });
+  });
 
   return (
     <div
@@ -43,8 +65,7 @@ export function ServicesList({ services, executeServices }: Props) {
         <input
           type="text"
           placeholder="Pesquisa"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
+          onChange={(e) => debounce(e.target.value)}
           style={{
             border: "none",
             outline: "none",
@@ -52,6 +73,16 @@ export function ServicesList({ services, executeServices }: Props) {
           }}
         />
       </div>
+      {noSearchValues && (
+        <span
+          style={{
+            fontSize: 12,
+            color: "gray",
+          }}
+        >
+          Nenhum valor encontrado para a pesquisa
+        </span>
+      )}
       <InfiniteScroll
         dataLength={services.data.length}
         next={() => {

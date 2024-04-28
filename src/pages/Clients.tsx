@@ -25,6 +25,14 @@ export function Clients() {
     path: "/users",
   });
 
+  const {
+    execute: executeFindManyFiltered,
+    response: clientsFiltered,
+    loading: loadingClientsFiltered,
+  } = useRequestFindMany<ResponseAPI<Client[]>>({
+    path: "/users",
+  });
+
   useEffect(() => {
     if (clients?.data) {
       setData((prevState) => [...prevState, ...clients.data]);
@@ -40,7 +48,7 @@ export function Clients() {
 
   return (
     <div>
-      <Loading isLoading={loadingClients} />
+      <Loading isLoading={loadingClients || loadingClientsFiltered} />
       <div style={styles.container}>
         <h4
           style={{
@@ -58,10 +66,16 @@ export function Clients() {
         </div>
         <ClientsList
           clients={{
-            data,
-            page: clients?.currentPage || 1,
-            lastPage: clients?.lastPage || 1,
+            data: clientsFiltered?.data.length ? clientsFiltered.data : data,
+            page: clientsFiltered?.data.length
+              ? clientsFiltered.currentPage
+              : clients?.currentPage || 1,
+            lastPage: clientsFiltered?.data.length
+              ? clientsFiltered.lastPage
+              : clients?.lastPage || 1,
           }}
+          noSearchValues={clientsFiltered?.data.length === 0}
+          executeClientsFiltered={executeFindManyFiltered}
           executeClients={executeFindMany}
         />
         <ClientsDetails />

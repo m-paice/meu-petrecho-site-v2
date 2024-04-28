@@ -26,6 +26,14 @@ export function Services() {
     path: "/services",
   });
 
+  const {
+    execute: executeFindManyServicesFiltered,
+    response: servicesFiltered,
+    loading: loadingFiltered,
+  } = useRequestFindMany<ResponseAPI<Service[]>>({
+    path: "/services",
+  });
+
   useEffect(() => {
     if (services?.data) {
       setData((prevState) => [...prevState, ...services.data]);
@@ -41,7 +49,7 @@ export function Services() {
 
   return (
     <div>
-      <Loading isLoading={loading} />
+      <Loading isLoading={loading || loadingFiltered} />
       <div style={styles.container}>
         <h4
           style={{
@@ -59,11 +67,17 @@ export function Services() {
         </div>
         <ServicesList
           services={{
-            data,
-            page: services?.currentPage || 1,
-            lastPage: services?.lastPage || 1,
+            data: servicesFiltered?.data.length ? servicesFiltered.data : data,
+            page: servicesFiltered?.data.length
+              ? servicesFiltered.currentPage
+              : services?.currentPage || 1,
+            lastPage: servicesFiltered?.data.length
+              ? servicesFiltered.lastPage
+              : services?.lastPage || 1,
           }}
+          noSearchValues={servicesFiltered?.data.length === 0}
           executeServices={executeFindManyServices}
+          executeServicesFiltered={executeFindManyServicesFiltered}
         />
         <ServicesDetails />
       </div>

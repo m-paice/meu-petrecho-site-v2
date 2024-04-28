@@ -3,6 +3,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
 import { useNavigate } from "react-router-dom";
 import { Client } from "../../pages/Clients";
+import { useBebounce } from "../../hooks/useDebounce";
 
 interface Props {
   clients: {
@@ -10,15 +11,36 @@ interface Props {
     page: number;
     lastPage: number;
   };
+  noSearchValues?: boolean;
   executeClients({ page }: { page: number }): void;
+  executeClientsFiltered({
+    page,
+    where,
+  }: {
+    page: number;
+    where: Record<string, unknown>;
+  }): void;
 }
 
-export function ClientsList({ clients, executeClients }: Props) {
+export function ClientsList({
+  clients,
+  noSearchValues,
+  executeClients,
+  executeClientsFiltered,
+}: Props) {
   const navigate = useNavigate();
 
-  const [search, setSearch] = useState("");
   const [selected, setSelected] = useState("");
   const [isHovered, setIsHovered] = useState("");
+
+  const debounce = useBebounce((value) => {
+    executeClientsFiltered({
+      page: 1,
+      where: {
+        name: { $iLike: `%${value}%` },
+      },
+    });
+  });
 
   return (
     <div
@@ -42,8 +64,7 @@ export function ClientsList({ clients, executeClients }: Props) {
         <input
           type="text"
           placeholder="Pesquisa"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
+          onChange={(e) => debounce(e.target.value)}
           style={{
             border: "none",
             outline: "none",
@@ -51,7 +72,16 @@ export function ClientsList({ clients, executeClients }: Props) {
           }}
         />
       </div>
-
+      {noSearchValues && (
+        <span
+          style={{
+            fontSize: 12,
+            color: "gray",
+          }}
+        >
+          Nenhum valor encontrado para a pesquisa
+        </span>
+      )}
       <InfiniteScroll
         dataLength={clients.data.length}
         next={() => {
