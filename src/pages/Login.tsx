@@ -62,6 +62,8 @@ export function Login() {
       localStorage.setItem("user", JSON.stringify(responseAuthLogin.user));
       localStorage.setItem("userId", responseAuthLogin.user.id);
       navigate("/schedules");
+      // reload page
+      window.location.reload();
     }
   }, [responseAuthLogin]);
 
