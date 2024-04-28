@@ -73,6 +73,12 @@ export function Login() {
     }
   }, [error]);
 
+  useEffect(() => {
+    if (localStorage.getItem("token") && localStorage.getItem("account")) {
+      navigate("/schedules");
+    }
+  }, []);
+
   return (
     <div
       style={{

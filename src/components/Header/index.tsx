@@ -208,7 +208,16 @@ export function Header() {
                   </button>
                 </Menu.Item>
                 <Menu.Item>
-                  <Button size="small" onClick={() => navigate("/")}>
+                  <Button
+                    size="small"
+                    onClick={() => {
+                      localStorage.removeItem("token");
+                      localStorage.removeItem("account");
+                      localStorage.removeItem("user");
+                      localStorage.removeItem("userId");
+                      navigate("/");
+                    }}
+                  >
                     Sair
                   </Button>
                 </Menu.Item>
