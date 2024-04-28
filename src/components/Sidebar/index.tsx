@@ -60,7 +60,14 @@ export function Sidebar() {
             gap: hideSidebar ? 0 : 20,
           }}
         >
-          <img width="40" src="/logo-meu-petrecho.png" alt="" />
+          <img
+            style={{
+              borderRadius: 10,
+            }}
+            width="40"
+            src="/logo-meu-petrecho.png"
+            alt=""
+          />
           <h4
             style={{
               textAlign: "center",

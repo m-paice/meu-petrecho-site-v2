@@ -97,8 +97,17 @@ export function Login() {
             justifyContent: "center",
           }}
         >
-          <img width="200" src="/logo-meu-petrecho.png" alt="" />
-          <img width="300" src="/meu-petrecho.png" alt="" />
+          <img
+            style={{
+              borderRadius: 10,
+              width: 500,
+              height: 500,
+              objectFit: "contain",
+            }}
+            width="200"
+            src="/logo-meu-petrecho.png"
+            alt=""
+          />
         </div>
       </section>
       <section
