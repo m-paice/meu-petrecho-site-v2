@@ -11,6 +11,13 @@ interface Props {
     page: number;
   };
   executeClients({ page }: { page: number }): void;
+  executeClientsFiltered({
+    page,
+    where,
+  }: {
+    page: number;
+    where: Record<string, unknown>;
+  }): void;
   setFieldValue: (field: string, value: unknown) => void;
   values: Fields;
 }
@@ -19,6 +26,7 @@ export function Clients({
   clients,
   clientsPaginated,
   executeClients,
+  executeClientsFiltered,
   setFieldValue,
   values,
 }: Props) {
@@ -32,7 +40,7 @@ export function Clients({
     >
       <h4>{"clientes".toUpperCase()}</h4>
 
-      <Search />
+      <Search executeFiltered={executeClientsFiltered} />
 
       <InfiniteScroll
         dataLength={clientsPaginated.data.length}

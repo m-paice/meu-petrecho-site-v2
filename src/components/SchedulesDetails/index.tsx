@@ -19,9 +19,9 @@ interface Schedule {
 }
 
 const status: { [key: string]: { color: string; text: string } } = {
-  finished: { color: "#13deb9", text: "finalizado" },
-  pending: { color: "#ffae1f", text: "pendente" },
-  canceled: { color: "#fa896b", text: "cancelado" },
+  finished: { color: "#13deb9", text: "Finalizado" },
+  pending: { color: "#ffae1f", text: "Pendente" },
+  canceled: { color: "#fa896b", text: "Cancelado" },
 };
 
 export function SchedulesDetails() {
@@ -201,7 +201,7 @@ export function SchedulesDetails() {
               }}
             >
               <div>
-                <b>status: </b>
+                <b>Status: </b>
                 <span
                   style={{
                     color: (status[response?.status || ""] || {}).color,

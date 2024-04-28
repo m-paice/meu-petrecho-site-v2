@@ -28,6 +28,10 @@ export function useRequestFindMany<T>({ path, defaultQuery = {} }: Props) {
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
 
+  const handleReset = () => {
+    setResponse(null);
+  };
+
   const execute = (params = {}) => {
     setLoading(true);
 
@@ -54,6 +58,7 @@ export function useRequestFindMany<T>({ path, defaultQuery = {} }: Props) {
 
   return {
     execute,
+    handleReset,
     response,
     error,
     loading,

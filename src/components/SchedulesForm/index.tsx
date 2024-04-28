@@ -122,9 +122,25 @@ export function SchedulesForm() {
     path: "/users",
   });
 
+  const {
+    execute: executeClientsFiltered,
+    response: clientsFiltered,
+    handleReset: resetClientsFiltered,
+  } = useRequestFindMany<ResponseAPI<Client[]>>({
+    path: "/users",
+  });
+
   const { execute: executeServices, response: services } = useRequestFindMany<
     ResponseAPI<Service[]>
   >({
+    path: "/services",
+  });
+
+  const {
+    execute: executeServicesFiltered,
+    response: servicesFiltered,
+    handleReset: resetServicesFiltered,
+  } = useRequestFindMany<ResponseAPI<Service[]>>({
     path: "/services",
   });
 
@@ -143,8 +159,14 @@ export function SchedulesForm() {
   useEffect(() => {
     if (window.location.pathname === "/schedules/new") {
       resetForm();
+      resetClientsFiltered();
+      resetServicesFiltered();
     }
   }, [window.location.pathname]);
+
+  useEffect(() => {
+    // reset filtred
+  }, [window.location.pathname === "/schedules"]);
 
   useEffect(() => {
     if (schedule) {
@@ -219,16 +241,32 @@ export function SchedulesForm() {
         }}
       >
         <Clients
-          clients={clients}
-          clientsPaginated={clientsPaginated}
+          clients={clientsFiltered?.data?.length ? clientsFiltered : clients}
+          clientsPaginated={
+            clientsFiltered?.data?.length
+              ? {
+                  data: clientsFiltered.data,
+                  page: clientsFiltered.currentPage,
+                }
+              : clientsPaginated
+          }
           executeClients={executeClients}
+          executeClientsFiltered={executeClientsFiltered}
           setFieldValue={setFieldValue}
           values={values}
         />
         <Services
-          services={services}
-          servicesPaginated={servicesPaginated}
+          services={servicesFiltered?.data.length ? servicesFiltered : services}
+          servicesPaginated={
+            servicesFiltered?.data.length
+              ? {
+                  data: servicesFiltered.data,
+                  page: servicesFiltered.currentPage,
+                }
+              : servicesPaginated
+          }
           executeServices={executeServices}
+          executeServicesFiltered={executeServicesFiltered}
           setFieldValue={setFieldValue}
           values={values}
         />
