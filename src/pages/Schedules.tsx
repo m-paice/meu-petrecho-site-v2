@@ -9,8 +9,9 @@ import { Button } from "../components/Button";
 import { SelectedDay } from "../components/SelectedDay";
 import { Loading } from "../components/Loading";
 import { useRequestFindMany } from "../hooks/useRequestFindMany";
-import { SchedulesNew } from "../components/SchedulesNew";
+import { SchedulesForm } from "../components/SchedulesForm";
 import { useNavigate } from "react-router-dom";
+import { SchedulesDetails } from "../components/SchedulesDetails";
 
 interface Schedules {
   id: string;
@@ -98,7 +99,9 @@ export function Schedules() {
           setCurrentDate={setCurrentDate}
         />
       </section>
-      <SchedulesNew />
+      <SchedulesForm />
+
+      <SchedulesDetails />
     </div>
   );
 }

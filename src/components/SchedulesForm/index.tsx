@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useFormik } from "formik";
 import dayjs from "dayjs";
 
@@ -10,6 +10,9 @@ import { Clients } from "./Clients";
 import { Services } from "./Services";
 import { Resume } from "./Resume";
 import { useRequestCreate } from "../../hooks/useRequestCreate";
+import { useRequestFindOne } from "../../hooks/useRequestFindOne";
+import { Loading } from "../Loading";
+import { useRequestUpdate } from "../../hooks/useRequestUpdate";
 
 export interface Fields {
   user: {
@@ -39,6 +42,13 @@ export interface Service {
   averageTime: string;
 }
 
+export interface Schedule {
+  id: string;
+  status: string;
+  services: Service[];
+  user: Client;
+  scheduleAt: string;
+}
 const initialValues = {
   user: null,
   services: [],
@@ -46,7 +56,8 @@ const initialValues = {
   time: dayjs().format("HH:mm"),
 };
 
-export function SchedulesNew() {
+export function SchedulesForm() {
+  const { id } = useParams();
   const navigate = useNavigate();
 
   const [clientsPaginated, setClientsPaginated] = useState<{
@@ -87,8 +98,17 @@ export function SchedulesNew() {
           discount: 0,
           addition: 0,
         };
-        executeCreateSchedule(payload);
+        if (id) {
+          executeUpdateSchedule(payload);
+        } else {
+          executeCreateSchedule(payload);
+        }
       },
+    });
+
+  const { execute: executeUpdateSchedule, response: responseUpdateSchedule } =
+    useRequestUpdate({
+      path: `/schedules/${id}`,
     });
 
   const { execute: executeCreateSchedule, response: responseCreateSchedule } =
@@ -108,17 +128,58 @@ export function SchedulesNew() {
     path: "/services",
   });
 
+  const {
+    execute: executeFindOne,
+    response: schedule,
+    loading: loadingFindOne,
+  } = useRequestFindOne<Schedule>({
+    path: `/schedules/${id}`,
+  });
+
+  useEffect(() => {
+    if (id) executeFindOne();
+  }, [id]);
+
+  useEffect(() => {
+    if (window.location.pathname === "/schedules/new") {
+      resetForm();
+    }
+  }, [window.location.pathname]);
+
+  useEffect(() => {
+    if (schedule) {
+      setFieldValue("user", {
+        id: schedule.user.id,
+        name: schedule.user.name,
+        cellPhone: schedule.user.cellPhone,
+      });
+
+      setFieldValue(
+        "services",
+        schedule.services.map((service) => ({
+          id: service.id,
+          name: service.name,
+          price: 0,
+          averageTime: service.averageTime,
+        }))
+      );
+
+      setFieldValue("date", dayjs(schedule.scheduleAt).format("YYYY-MM-DD"));
+      setFieldValue("time", dayjs(schedule.scheduleAt).format("HH:mm"));
+    }
+  }, [schedule]);
+
   useEffect(() => {
     executeClients();
     executeServices();
   }, []);
 
   useEffect(() => {
-    if (responseCreateSchedule) {
+    if (responseCreateSchedule || responseUpdateSchedule) {
       navigate("/schedules");
       resetForm();
     }
-  }, [responseCreateSchedule]);
+  }, [responseCreateSchedule, responseUpdateSchedule]);
 
   useEffect(() => {
     if (clients?.data) {
@@ -140,11 +201,16 @@ export function SchedulesNew() {
 
   return (
     <Modal
-      isOpen={window.location.pathname === "/schedules/new"}
+      isOpen={
+        window.location.pathname === "/schedules/new" ||
+        window.location.pathname === `/schedules/${id}/edit`
+      }
       closeModal={() => navigate("/schedules")}
       title=""
       size="extraLarge"
     >
+      <Loading isLoading={loadingFindOne} />
+
       <form
         onSubmit={handleSubmit}
         style={{

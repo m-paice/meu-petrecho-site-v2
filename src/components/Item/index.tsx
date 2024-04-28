@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 interface Props {
   text: string;
@@ -6,10 +7,12 @@ interface Props {
   scheduleAt: string;
   services: string;
   user: string;
+  id: string;
 }
 
-export function Item({ text, color, scheduleAt, services, user }: Props) {
+export function Item({ text, color, scheduleAt, services, user, id }: Props) {
   const [isHovered, setIsHovered] = useState("");
+  const navigate = useNavigate();
 
   return (
     <div
@@ -21,6 +24,7 @@ export function Item({ text, color, scheduleAt, services, user }: Props) {
       }}
       onMouseEnter={() => setIsHovered("true")}
       onMouseLeave={() => setIsHovered("")}
+      onClick={() => navigate(`/schedules/${id}`)}
     >
       <div className="item" style={styles.item}>
         <div

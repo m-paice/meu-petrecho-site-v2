@@ -79,8 +79,7 @@ export function Resume({ values, setFieldValue, handleChange }: Props) {
           <p>{values.user?.name}</p>
           <span
             style={{
-              color: "black",
-              fontSize: 12,
+              color: "#0077cc",
             }}
           >
             {values.user?.cellPhone.replace(

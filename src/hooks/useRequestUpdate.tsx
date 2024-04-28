@@ -13,6 +13,7 @@ export function useRequestUpdate<T>({ path }: Props) {
 
   const execute = (payload: unknown, params = {}) => {
     setLoading(true);
+    setResponse(null);
 
     api
       .put(path, payload, {

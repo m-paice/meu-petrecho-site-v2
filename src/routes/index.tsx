@@ -23,6 +23,14 @@ const router = createBrowserRouter([
         element: <Schedules />,
       },
       {
+        path: "/schedules/:id/edit",
+        element: <Schedules />,
+      },
+      {
+        path: "/schedules/:id",
+        element: <Schedules />,
+      },
+      {
         path: "/services",
         element: <Services />,
       },
