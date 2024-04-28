@@ -65,7 +65,7 @@ export function Sidebar() {
               borderRadius: 10,
             }}
             width="40"
-            src="/logo-meu-petrecho.png"
+            src="/logo-meu-petrecho-v2.png"
             alt=""
           />
           <h4

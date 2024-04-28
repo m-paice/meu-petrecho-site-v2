@@ -105,7 +105,7 @@ export function Login() {
               objectFit: "contain",
             }}
             width="200"
-            src="/logo-meu-petrecho.png"
+            src="/logo-meu-petrecho-v2.png"
             alt=""
           />
         </div>
