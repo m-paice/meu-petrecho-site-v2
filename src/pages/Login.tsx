@@ -4,6 +4,7 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import { toast } from "react-toastify";
 
+import pkage from "../../package.json";
 import { Button } from "../components/Button";
 import { Input } from "../components/Input";
 import { useRequestCreate } from "../hooks/useRequestCreate";
@@ -196,6 +197,7 @@ export function Login() {
             </Button>
           </form>
         </div>
+        <p>versão: {pkage.version}</p>
       </section>
     </div>
   );
