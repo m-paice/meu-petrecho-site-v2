@@ -6,7 +6,16 @@ import { Button } from "../Button";
 import { useLayoutContext } from "../../context/layout";
 import { Bars4Icon } from "@heroicons/react/24/solid";
 
-const paths = {
+const paths: {
+  [key: string]: {
+    title: string;
+    children: {
+      [key: string]: {
+        title: string;
+      };
+    };
+  };
+} = {
   "/schedules": {
     title: "Agendamentos",
     children: {

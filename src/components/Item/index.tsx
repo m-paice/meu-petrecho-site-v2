@@ -51,14 +51,16 @@ export function Item({ text, color, scheduleAt, services, user, id }: Props) {
   );
 }
 
-const styles = {
+const styles: {
+  [key: string]: React.CSSProperties;
+} = {
   item: {
     width: "100%",
     marginBottom: "10px",
     borderBottom: "1px solid #000",
     cursor: "pointer",
     marginRight: 10,
-    fonttSize: 18,
+    fontSize: 18,
     display: "flex",
     flexDirection: "column",
     alignItems: "flex-start",
