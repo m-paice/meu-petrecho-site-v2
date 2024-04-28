@@ -33,7 +33,10 @@ export function Services() {
   }, [services?.data]);
 
   useEffect(() => {
-    if (window.location.pathname === "/services") executeFindManyServices();
+    if (window.location.pathname === "/services") {
+      setData([]);
+      executeFindManyServices();
+    }
   }, [window.location.pathname]);
 
   return (

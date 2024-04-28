@@ -32,7 +32,10 @@ export function Clients() {
   }, [clients?.data]);
 
   useEffect(() => {
-    if (window.location.pathname === "/clients") executeFindMany();
+    if (window.location.pathname === "/clients") {
+      setData([]);
+      executeFindMany();
+    }
   }, [window.location.pathname]);
 
   return (
