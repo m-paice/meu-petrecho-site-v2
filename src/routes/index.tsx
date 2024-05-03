@@ -5,11 +5,16 @@ import { DashboardLayout } from "./DashboardLayout";
 import { Services } from "../pages/Services";
 import { Clients } from "../pages/Clients";
 import { Schedules } from "../pages/Schedules";
+import { Confirmed } from "../pages/Confirmed";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Login />,
+  },
+  {
+    path: "/confirmacao",
+    element: <Confirmed />,
   },
   {
     element: <DashboardLayout />,
